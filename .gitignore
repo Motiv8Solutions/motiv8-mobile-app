@@ -6,3 +6,5 @@ app/node_modules/**/*
 app/platforms/**/*
 app/plugins/**/*
 app/res/**/*
+app/www/css/style.css
+app/www/js/main*

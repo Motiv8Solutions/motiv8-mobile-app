@@ -30,7 +30,9 @@
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
+    "copy:assets": "cp -rf assets/fonts app/www/css/. && cp assets/style.css app/www/css/.",
     "build": "./node_modules/.bin/webpack --config webpack.prod.js",
+    "build:cordova": "npm run copy:assets && ./node_modules/.bin/webpack --config webpack.cordova.js",
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.dev.js",
     "lint": "./node_modules/.bin/eslint --ext .jsx --ext .js .",
     "test": "test",
