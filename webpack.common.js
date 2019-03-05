@@ -1,16 +1,16 @@
 module.exports = {
-    entry: ['./index.tsx'],
+    entry: ['./index.jsx'],
     module: {
         rules: [
             {
-                // Include ts, tsx, js and jsx files
-                test: /\.(ts|js)x$/,
+                // Include js and jsx files
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
         ]
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.js', '.jsx', '.json']
     }
 };

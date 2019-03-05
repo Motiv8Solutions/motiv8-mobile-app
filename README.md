@@ -18,3 +18,4 @@ The Motiv8 mobile app is a usual single page application built using ReactJS, Ty
     > cordova build ios
 - Follow the instructions at https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html to run the app in the iOS simulator.
 - The App.tsx file is the entry point of the application. Build your React application starting with App.tsx
+- **IMPORTANT** - The version of webpack-dev-server is fixed at 3.0.0 because of this [error](https://stackoverflow.com/questions/53690282/typeerror-cannot-destructure-property-compile-of-undefined-or-null).
