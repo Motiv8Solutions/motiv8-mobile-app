@@ -1,17 +1,25 @@
 // Main React application entry point
 
 import React from 'react';
-import { LoginView } from 'motiv8-atoms';
+import { Route } from 'react-router-dom';
+import routes from './Constants/Routes';
+import { withRouter } from 'react-router';
 
 class App extends React.Component {
     render () {
+        console.log(`location = ${this.props.location.pathname}`);
         return (
-            <div>
-                {/* <h1>Motiv8 Mobile App</h1> */}
-                <LoginView/>
-            </div>
+            <React.Fragment>
+            {
+                routes.map((route, index) => {
+                    return (
+                        <Route key={`route${index}`} exact={route.exact} path={route.path} render={route.renderFn}/>
+                    );
+                })
+            }
+            </React.Fragment>
         );
     }
 }
 
-export default App;
+export default withRouter(App);

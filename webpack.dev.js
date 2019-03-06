@@ -14,5 +14,8 @@ module.exports = merge(common, {
     devServer: {
         contentBase: './dist'
     },
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [new HtmlWebpackPlugin({
+        title: 'Dev Server HTML Template',
+        template: 'devServer.html'
+    })]
 });

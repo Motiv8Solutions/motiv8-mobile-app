@@ -5,9 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.11",
-    "motiv8-atoms": "git+https://github.com/Motiv8Solutions/motiv8-atoms.git#36548c880be317346849ba428d94409ed9efc6c1",
+    "motiv8-atoms": "git+https://github.com/Motiv8Solutions/motiv8-atoms.git#e88256341f59f7573a3fd5421611e5fa4c4ab5f0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
