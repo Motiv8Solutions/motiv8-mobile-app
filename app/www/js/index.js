@@ -32,12 +32,11 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('#root');
+        var listeningElement = document.querySelector('.listening');
+        var receivedElement = document.querySelector('#root');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:flex;');
 
         console.log('Received Event: ' + id);
     }
