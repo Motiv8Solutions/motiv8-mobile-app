@@ -7,6 +7,22 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /\.(jpe?p|png|gif|svg)$/i,
+                exclude: /node_modules/,
+                loader: 'url-loader',
+                options: {
+                    limit: 204800
+                }
+            },
+            {
+                test: /\.(jpe?p|png|gif|svg)$/i,
+                exclude: /node_modules/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
             }
         ]
     },

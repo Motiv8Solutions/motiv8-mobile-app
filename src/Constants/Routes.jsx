@@ -1,5 +1,6 @@
-import { LoginView } from 'motiv8-atoms';
-import SplashScreen from '../Components/SplashScreen';
+import SplashScreen from '../Screens/SplashScreen';
+import LoginScreen from '../Screens/LoginScreen';
+import HomeScreen from '../Screens/HomeScreen';
 import React from 'react';
 
 const routes = [
@@ -7,7 +8,15 @@ const routes = [
         path: '/login',
         renderFn: function () {
             return (
-                <LoginView/>
+                <LoginScreen/>
+            );
+        }
+    },
+    {
+        path: '/home',
+        renderFn: function () {
+            return (
+                <HomeScreen/>
             );
         }
     },
