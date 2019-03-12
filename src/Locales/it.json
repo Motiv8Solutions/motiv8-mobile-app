@@ -1,5 +1,8 @@
 {
     "GREETING": "Ciao, Boun giorno!!!",
     "GENERIC_SIGNIN_ERROR_MESSAGE": "Either the username or password is incorrect",
-    "UNAUTHORIZED_SIGNIN_ERROR_MESSAGE": "Either the username or password is incorrect"
+    "UNAUTHORIZED_SIGNIN_ERROR_MESSAGE": "Either the username or password is incorrect",
+    "USERNAME_PLACEHOLDER": "Nome utente",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "SIGN_IN_BUTTON": "Accedi"
 }

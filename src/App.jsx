@@ -24,7 +24,20 @@ const messages = {
 
 class App extends React.Component {
     render () {
+        let language = 'en-US';
         let locale = 'en';
+        // ECMA Internationalization API, get the language
+        if (window.Intl && typeof window.Intl === 'object') {
+            console.log(`Intl API found, language = ${navigator.language}`);
+            language = navigator.language;
+        } else {
+            console.log('Intl API not supported');
+        }
+        // get the locale from the language. two characters before the hyphen.
+        if (language.indexOf('-') > -1) {
+            locale = language.substring(0, language.indexOf('-'));
+        }
+        console.log(`locale = ${locale}`);
         return (
             <IntlProvider locale={locale} messages={messages[locale]}>
                 <React.Fragment>
