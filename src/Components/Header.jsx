@@ -1,6 +1,11 @@
 import React from 'react';
 import { AppHeader } from 'motiv8-atoms';
-import { faBars, faHome, faCarrot, faTrophy, faCalculator, faQuestion, faHandsHelping, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCarrot, faTrophy, faCalculator, faQuestion, faHandsHelping, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { withRouter } from 'react-router';
+
+function action (index, item) {
+    console.log(`index shown ${index}, item shown ${item.text}`);
+};
 
 class Header extends React.Component {
     constructor (props) {
@@ -9,34 +14,46 @@ class Header extends React.Component {
             toggle: {
                 icon: faBars
             },
+            backAction: function () {
+                props.history.push('/home');
+            },
             menu: [
-                { 
-                    icon: faHome,
-                    text: 'Home' 
-                },
                 {
                     icon: faCarrot,
-                    text: 'Programs'
+                    text: 'Programs',
+                    back: true,
+                    action: action
                 },
                 {
                     icon: faTrophy,
-                    text: 'Rewards'
+                    text: 'Rewards',
+                    back: true,
+                    action: action
                 },
                 {
                     icon: faCalculator,
-                    text: 'Estimator'
+                    text: 'Estimator',
+                    back: true,
+                    action: action
                 },
                 {
                     icon: faQuestion,
-                    text: 'Disputes'
+                    text: 'Disputes',
+                    back: true,
+                    action: action
                 },
                 {
                     icon: faHandsHelping,
-                    text: 'Help'
+                    text: 'Help',
+                    back: true,
+                    action: function () {
+                        props.history.push('/contact');
+                    }
                 },
                 {
                     icon: faSignOutAlt,
-                    text: 'Sign out'
+                    text: 'Sign out',
+                    action: action
                 }
             ]
         };
@@ -48,4 +65,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

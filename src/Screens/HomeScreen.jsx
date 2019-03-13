@@ -3,7 +3,7 @@ import { Card } from 'motiv8-atoms';
 import Header from '../Components/Header';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-// import FuzzyDiceImg from '../../assets/FuzzyDice.png';
+import { withRouter } from 'react-router';
 
 /**
  * Displays the content of the Home Screen. This is the first screen shown to the user when they log in.
@@ -93,7 +93,6 @@ class HomeScreen extends React.Component {
     render () {
         return (
             <div className={this.props.className}>
-                <Header/>
                 <div className='cardHolder'>
                     <Card className='card' config={this.fuzzyFridaysConfig} template='contest-enter'/>
                     <Card config={this.denimDaysConfig} template='contest-enter'/>
@@ -103,10 +102,11 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default styled(HomeScreen)`
+export default styled(withRouter(HomeScreen))`
     div.cardHolder {
         display: flex;
         flex-direction: column;
+        flex: 1;
         align-items: flex-start;
         justify-content: center;
         padding: 16px 12px 16px 12px;

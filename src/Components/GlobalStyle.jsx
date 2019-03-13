@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-    html, body, div#root {
+    html, body, div#root, div#appFrame {
         display: flex;
         flex: 1;
         width: 100%;

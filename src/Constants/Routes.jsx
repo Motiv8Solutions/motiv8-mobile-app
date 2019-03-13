@@ -1,6 +1,7 @@
 import SplashScreen from '../Screens/SplashScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import HomeScreen from '../Screens/HomeScreen';
+import ContactScreen from '../Screens/ContactScreen';
 import React from 'react';
 
 const routes = [
@@ -17,6 +18,14 @@ const routes = [
         renderFn: function () {
             return (
                 <HomeScreen/>
+            );
+        }
+    },
+    {
+        path: '/contact',
+        renderFn: function () {
+            return (
+                <ContactScreen/>
             );
         }
     },
