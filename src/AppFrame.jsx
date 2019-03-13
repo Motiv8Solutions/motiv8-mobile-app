@@ -30,7 +30,6 @@ class AppFrame extends React.Component {
     }
 
     renderHeader () {
-        console.log(`location.path = ${this.props.location.pathname}`);
         if (this.props.location.pathname === '/' || this.props.location.pathname === '/login') {
             return null;
         }
@@ -39,8 +38,5 @@ class AppFrame extends React.Component {
 };
 
 export default styled(withRouter(AppFrame))`
-    // display: flex;
     flex-direction: column;
-    // flex: 1;
-    // align-items: flex-start;
 `;
