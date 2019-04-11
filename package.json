@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.11",
-    "motiv8-atoms": "git+https://github.com/Motiv8Solutions/motiv8-atoms.git#6b0cfa5b09d6ba76bba08cd2b6239c7066f142a7",
+    "motiv8-atoms": "git+https://github.com/Motiv8Solutions/motiv8-atoms.git#573cb036c5e05359ac1c1dafd9a1795a12728977",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-intl": "^2.8.0",

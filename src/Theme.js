@@ -70,7 +70,7 @@ export const Fonts = {
     },
     textbox: {
         fontFamily: PrimaryFontFamily,
-        fontSize: '1.125rem',
+        fontSize: '0.75rem',
         fontWeight: 400,
         lineHeight: '1.5rem'
     },

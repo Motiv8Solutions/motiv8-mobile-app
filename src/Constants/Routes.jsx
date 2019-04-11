@@ -2,6 +2,8 @@ import SplashScreen from '../Screens/SplashScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import HomeScreen from '../Screens/HomeScreen';
 import ContactScreen from '../Screens/ContactScreen';
+import ProgramsScreen from '../Screens/ProgramsScreen';
+import ContestScreen from '../Screens/ContestScreen';
 import React from 'react';
 
 const routes = [
@@ -18,6 +20,22 @@ const routes = [
         renderFn: function () {
             return (
                 <HomeScreen/>
+            );
+        }
+    },
+    {
+        path: '/programs',
+        renderFn: function () {
+            return (
+                <ProgramsScreen/>
+            );
+        }
+    },
+    {
+        path: '/contest',
+        renderFn: function () {
+            return (
+                <ContestScreen/>
             );
         }
     },

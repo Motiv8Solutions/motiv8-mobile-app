@@ -22,7 +22,9 @@ class Header extends React.Component {
                     icon: faCarrot,
                     text: 'Programs',
                     back: true,
-                    action: action
+                    action: function () {
+                        props.history.push('./programs');
+                    }
                 },
                 {
                     icon: faTrophy,

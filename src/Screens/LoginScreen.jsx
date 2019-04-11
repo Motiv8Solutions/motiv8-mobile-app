@@ -22,8 +22,8 @@ class LoginScreen extends React.Component {
                     <Label type='heading1' content='Motiv8' alternate={true}/>
                 </div>
                 <div className='loginContainer'>
-                    <Textbox id='username' placeholder={this.props.intl.formatMessage({ id: 'USERNAME_PLACEHOLDER' })} size='M'/>
-                    <Textbox id='password' type='password' placeholder={this.props.intl.formatMessage({ id: 'PASSWORD_PLACEHOLDER' })} size='M'/>
+                    <Textbox id='username' placeholder={this.props.intl.formatMessage({ id: 'USERNAME_PLACEHOLDER' })} size='medium'/>
+                    <Textbox id='password' type='password' placeholder={this.props.intl.formatMessage({ id: 'PASSWORD_PLACEHOLDER' })} size='medium'/>
                     <PrimaryButton id='signInButton' text={this.props.intl.formatMessage({ id: 'SIGN_IN_BUTTON' })} clickHandler={this.signIn} />
                 </div>
                 <div className='legalContainer'>
