@@ -10,7 +10,11 @@ export const Colors = {
     secondaryText: '#000000',
     alternateText: '#FFFFFF',
     linkText: '#FF7C00',
-    borderColor1: '#979797'
+    borderColor1: '#979797',
+    magenta400: '#AB47BC',
+    blue400: '#4897C1',
+    cyan400: '#28B9B0',
+    green400: '#2A7B2A'
 };
 export const PrimaryFontFamily = 'Poppins';
 export const Fonts = {

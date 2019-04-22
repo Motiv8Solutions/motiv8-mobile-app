@@ -64,6 +64,10 @@ class ContactScreen extends React.Component {
 }
 
 export default styled(injectIntl(ContactScreen))`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
     form {
         height: 100%;
         width: 100%;

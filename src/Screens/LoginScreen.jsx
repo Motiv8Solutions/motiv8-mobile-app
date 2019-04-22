@@ -18,17 +18,19 @@ class LoginScreen extends React.Component {
         agreements which can be found on the company website.</span>;
         return (
             <div className={this.props.className}>
-                <div className='titleContainer'>
-                    <Label type='heading1' content='Motiv8' alternate={true}/>
-                </div>
-                <div className='loginContainer'>
-                    <Textbox id='username' placeholder={this.props.intl.formatMessage({ id: 'USERNAME_PLACEHOLDER' })} size='medium'/>
-                    <Textbox id='password' type='password' placeholder={this.props.intl.formatMessage({ id: 'PASSWORD_PLACEHOLDER' })} size='medium'/>
-                    <PrimaryButton id='signInButton' text={this.props.intl.formatMessage({ id: 'SIGN_IN_BUTTON' })} clickHandler={this.signIn} />
-                </div>
-                <div className='legalContainer'>
-                    <Label id='legal' type='body5' content={legalContent} alternate={true}/>
-                </div>
+                <form id='loginForm' onSubmit={this.signIn}>
+                    <div className='titleContainer'>
+                        <Label type='heading1' content='Motiv8' alternate={true}/>
+                    </div>
+                    <div className='loginContainer'>
+                        <Textbox id='username' placeholder={this.props.intl.formatMessage({ id: 'USERNAME_PLACEHOLDER' })} size='medium' required={true}/>
+                        <Textbox id='password' type='password' placeholder={this.props.intl.formatMessage({ id: 'PASSWORD_PLACEHOLDER' })} size='medium' required={true}/>
+                        <PrimaryButton id='signInButton' text={this.props.intl.formatMessage({ id: 'SIGN_IN_BUTTON' })} type='submit' />
+                    </div>
+                    <div className='legalContainer'>
+                        <Label id='legal' type='body5' content={legalContent} alternate={true}/>
+                    </div>
+                </form>
             </div>
         );
     }
@@ -44,11 +46,17 @@ LoginScreen.displayName = 'LoginScreen';
 export default styled(injectIntl(withRouter(LoginScreen)))`
     align-items: center;
     background-color: ${props => props.theme.colors.secondaryBackground};
+    padding: 16px;
     display: flex;
     flex: 1;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 16px;
+
+    form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
     .titleContainer, .loginContainer, .legalContainer {
         display: flex;

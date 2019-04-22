@@ -13,6 +13,7 @@ import es from 'react-intl/locale-data/es';
 import AppFrame from './AppFrame';
 
 addLocaleData([...en, ...it, ...de, ...es]);
+window.IS_MOCK = true;
 
 const messages = {
     'en': messages_en,

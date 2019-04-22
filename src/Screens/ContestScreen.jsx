@@ -43,7 +43,11 @@ export class ContestScreen extends React.Component {
                                     }
                                 }
                             ]
-                        },
+                        }
+                    ]
+                },
+                {
+                    "rows": [
                         {
                             "label": null,
                             "components": [
@@ -95,4 +99,5 @@ export class ContestScreen extends React.Component {
 
 export default styled(ContestScreen)`
     display: flex;
+    flex: 1;
 `;
