@@ -1,5 +1,5 @@
 module.exports = {
-    entry: ['./index.jsx'],
+    entry: ['@babel/polyfill', './index.jsx'],
     module: {
         rules: [
             {

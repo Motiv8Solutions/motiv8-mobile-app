@@ -1,5 +1,7 @@
 import React from 'react';
-import { SplashView } from 'motiv8-atoms';
+import styled from 'styled-components';
+import { Label } from 'motiv8-atoms';
+import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 
 class SplashScreen extends React.Component {
@@ -10,7 +12,7 @@ class SplashScreen extends React.Component {
 
     componentDidMount () {
         this.countdownTimer = window.setTimeout(() => {
-            this.props.history.push('/login');
+            this.props.history.push('/signup');
         }, 2000);
     }
 
@@ -20,9 +22,24 @@ class SplashScreen extends React.Component {
 
     render () {
         return (
-            <SplashView/>
+            <div className={this.props.className}>
+                <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
+                <div className='tagLine'>
+                    <Label type='heading2' content={this.props.intl.formatMessage({id: 'COMPANY_TAGLINE'})} alternate={true}/>
+                </div>
+            </div>
         )
     }
 }
 
-export default withRouter(SplashScreen);
+export default styled(injectIntl(withRouter(SplashScreen)))`
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    justify-content: center;
+    background-color: ${props => props.theme.colors.secondaryBackground};
+    
+    .tagLine {
+        margin-top: 36px;
+    }
+`;

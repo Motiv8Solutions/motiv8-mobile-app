@@ -30,7 +30,7 @@ class AppFrame extends React.Component {
     }
 
     renderHeader () {
-        if (this.props.location.pathname === '/' || this.props.location.pathname === '/login') {
+        if (this.props.location.pathname === '/' || this.props.location.pathname === '/signin' || this.props.location.pathname === '/signup') {
             return null;
         }
         return <Header/>;

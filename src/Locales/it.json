@@ -6,5 +6,15 @@
     "PASSWORD_PLACEHOLDER": "Password",
     "SIGN_IN_BUTTON": "Accedi",
     "SUBJECT_PLACEHOLDER": "Subject",
-    "DETAILS_PLACEHOLDER": "Details"
+    "DETAILS_PLACEHOLDER": "Details",
+    "ANNOUNCEMENT": "Announcement",
+    "CONTEST": "Contest",
+    "BONUS": "Bonus",
+    "COMMISSION": "Commission",
+    "COMPANY_TITLE": "Motiv8",
+    "COMPANY_TAGLINE": "Sell stuff, get paid.",
+    "MOBILE_PLACEHOLDER": "Mobile number",
+    "VERIFICATION_TITLE": "Verification Code",
+    "VERIFICATION_MESSAGE": "A verification code  has been sent to your mobile phone at (***)***-1234",
+    "SIGN_UP": "SIGN UP"
 }
