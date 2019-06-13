@@ -24,6 +24,10 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-android-fingerprint-auth" spec="^1.5.0" />
+    <plugin name="cordova-plugin-touch-id" spec="^3.4.0">
+        <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />
 </widget>

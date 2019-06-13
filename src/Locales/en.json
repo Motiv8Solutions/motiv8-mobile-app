@@ -16,5 +16,14 @@
     "MOBILE_PLACEHOLDER": "Mobile number",
     "VERIFICATION_TITLE": "Verification Code",
     "VERIFICATION_MESSAGE": "A verification code  has been sent to your mobile phone at (***)***-1234",
-    "SIGN_UP": "SIGN UP"
+    "SIGN_UP": "SIGN UP",
+    "BIOMETRIC_MESSAGE_OPT_IN": "Motiv8 mobile app uses Biometric authentication on your device for extra security. No passwords!",
+    "BIOMETRIC_MESSAGE_OPT_OUT": "If you opt out of Biometric authentication, you will have the option of signing in with a code everytime you use the Motiv8 mobile app. Click the button below to opt out.",
+    "BIOMETRIC_MESSAGE_UNAVAILABLE": "Your device does not support Biometric authentication. You will have to sign in using a code everytime you use the Motiv8 mobile app.",
+    "OK": "OK",
+    "OPT_OUT": "Opt Out",
+    "SET_UP_BIOMETRIC_AUTH": "Set up {type}",
+    "TOUCH_ID": "Touch Id",
+    "FACE_ID": "Face Id",
+    "FINGERPRINT": "Fingerprint"
 }
