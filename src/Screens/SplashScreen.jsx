@@ -25,7 +25,7 @@ class SplashScreen extends React.Component {
             <div className={this.props.className}>
                 <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
                 <div className='tagLine'>
-                    <Label type='heading2' content={this.props.intl.formatMessage({id: 'COMPANY_TAGLINE'})} alternate={true}/>
+                    <Label type='heading3' content={this.props.intl.formatMessage({id: 'COMPANY_TAGLINE'})} alternate={true}/>
                 </div>
             </div>
         )

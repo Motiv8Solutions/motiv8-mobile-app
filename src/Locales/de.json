@@ -25,5 +25,7 @@
     "SET_UP_BIOMETRIC_AUTH": "Set up {type}",
     "TOUCH_ID": "Touch Id",
     "FACE_ID": "Face Id",
-    "FINGERPRINT": "Fingerprint"
+    "FINGERPRINT": "Fingerprint",
+    "SCAN_FINGERPRINT_MESSAGE": "Scan your fingerprint please",
+    "SCAN_FACE_MESSAGE": "Scan your face please :)"
 }

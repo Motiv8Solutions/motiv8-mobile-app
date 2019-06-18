@@ -28,7 +28,7 @@ class MobileNumberEntry extends React.Component {
                     <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
                     <div className='content'>
                         <Textbox placeholder='+1' value={this.state.countryCode} charSize={3} maxLength={3} onChange={this.handleCountryCode}/>
-                        <Textbox className='mobileNumber' value={this.state.mobileNumber} placeholder='mobile number' type='tel' size='medium' onChange={this.handleMobileNumber} />
+                        <Textbox className='mobileNumber' value={this.state.mobileNumber} placeholder='mobile number' type='tel' size='full' onChange={this.handleMobileNumber} />
                         <IconButton className='arrow' icon={faArrowRight} clickHandler={this.submitMobileNumber}/>
                     </div>
                 </div>
@@ -106,10 +106,10 @@ class OrganizationEntry extends React.Component {
                     <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
                     <div className='content firstLine'>
                         <Textbox charSize={3} value={this.props.countryCode} disabled={true} />
-                        <Textbox className='mobileNumber' size='medium' value={this.props.mobileNumber} disabled={true} />
+                        <Textbox className='mobileNumber' size='full' value={this.props.mobileNumber} disabled={true} />
                     </div>
                     <div className='content secondLine'>
-                        <Textbox className='org' size='medium' value={orgName} disabled={true} />
+                        <Textbox className='org' size='full' value={orgName} disabled={true} />
                         <IconButton className='arrow' icon={faArrowRight} clickHandler={this.submitOrganization}/>
                     </div>
                 </div>
@@ -140,6 +140,10 @@ const OrganizationEntryStyled = styled(injectIntl(OrganizationEntry))`
         flex-direction: row;
         justify-content: center;
         width: 100%;
+
+        input.mobileNumber {
+            margin-left: 12px;
+        }
     }
 
     div.firstLine {
@@ -294,12 +298,15 @@ class BiometricScreen extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            biometricsSupported: false
+            biometricsSupported: false,
+            biometricType: null,
+            deviceType: null
         };
         this.handleBiometricUnavailable = this.handleBiometricUnavailable.bind(this);
         this.checkBiometricSupport = this.checkBiometricSupport.bind(this);
         this.checkIOSBiometricSupport = this.checkIOSBiometricSupport.bind(this);
         this.checkAndroidBiometricSupport = this.checkAndroidBiometricSupport.bind(this);
+        this.registerBiometrics = this.registerBiometrics.bind(this);
     }
 
     /**
@@ -323,12 +330,23 @@ class BiometricScreen extends React.Component {
     }
 
     renderAuthentication () {
+        let that = this;
+        function getTypeMessage () {
+            if (that.state.biometricType === 'face') {
+                return that.props.intl.formatMessage({id: 'FACE_ID'});
+            } else if (that.state.biometricType === 'touch') {
+                return that.props.intl.formatMessage({id: 'TOUCH_ID'});
+            } else {
+                return that.props.intl.formatMessage({id: 'FINGERPRINT'});
+            }
+        }
+
         if (this.state.biometricsSupported) {
             return (
                 <>
                     <Label type='body1' content={this.props.intl.formatMessage({id: 'BIOMETRIC_MESSAGE_OPT_IN'})} alternate={true}/>
                     <div className='button'>
-                        <PrimaryButton text={this.props.intl.formatMessage({id: 'SET_UP_BIOMETRIC_AUTH'}, {type: 'Touch Id'})}
+                        <PrimaryButton text={this.props.intl.formatMessage({id: 'SET_UP_BIOMETRIC_AUTH'}, {type: getTypeMessage()})}
                             clickHandler={this.registerBiometrics}/>
                     </div>
                     <Label type='body1' content={this.props.intl.formatMessage({id: 'BIOMETRIC_MESSAGE_OPT_OUT'})} alternate={true}/>
@@ -371,7 +389,57 @@ class BiometricScreen extends React.Component {
      * Call the Cordova plugin that launches the biometric registration UI.
      */
     registerBiometrics () {
-
+        let that = this;
+        let scanMessage = (this.state.biometricType === 'face' ? 'SCAN_FACE_MESSAGE' : 'SCAN_FINGERPRINT_MESSAGE');
+        if (this.state.deviceType === 'ios') {
+            console.info(`BiometricsScreen.registerBiometrics: iOS verifying fingerprint and storing the token.`);
+            // ios
+            window.plugins.touchid.verifyFingerprintWithCustomPasswordFallback(
+                this.props.intl.formatMessage({id: scanMessage}),
+                function () {
+                    // success handler, fingerprint accepted
+                    // store the phone number and the bearer token in local storage
+                    // TODO: Can we store the bearer token encrypted? Is it required?
+                    window.localStorage.setItem('phoneNumber', `${that.props.countryCode}-${that.props.phoneNumber}`);
+                    window.localStorage.setItem('bearerToken', that.props.bearerToken);
+                    that.props.history.push('/home');
+                },
+                function (msg) {
+                    // error handler, with error code and localized reason
+                    // TODO: What do we do here?
+                    console.error(`BiometricScreen.registerBiometrics: iOS error in registering biometric authentication, message: ${JSON.stringify(msg)}`);
+                }
+            );
+        } else {
+            // android
+            console.info(`BiometricsScreen.registerBiometrics: android verifying fingerprint, encrypting and storing the token.`);
+            let that = this;
+            let config = {
+                clientId: 'com.motiv8solutions.mobileapp',
+                username: `${that.props.countryCode}-${that.props.phoneNumber}`,
+                password: that.props.bearerToken,
+                disableBackup: true,
+                dialogMessage: that.props.intl.formatMessage({id: scanMessage})
+            };
+            FingerprintAuth.encrypt(
+                config,
+                function (result) {
+                    console.info(`BiometricScreen.registerBiometrics: Fingerprint verified, result: ${JSON.stringify(result)}`);
+                    if (result.withFingerprint) {
+                        console.info(`BiometricScreen.registerBiometrics: Successfully encrypted credentials, encrypted token: ${result.token}`);
+                        // store the phone number and the encrypted token in local storage
+                        window.localStorage.setItem('phoneNumber', `${that.props.countryCode}-${that.props.phoneNumber}`);
+                        window.localStorage.setItem('bearerToken', result.token);
+                        that.props.history.push('/home');
+                    }
+                },
+                function (error) {
+                    // error handler, with error code and localized reason
+                    // TODO: What do we do here?
+                    console.error(`BiometricScreen.registerBiometrics: android error in registering biometric authentication, message: ${JSON.stringify(msg)}`);
+                }
+            );
+        }
     }
 
     /**
@@ -381,11 +449,19 @@ class BiometricScreen extends React.Component {
     checkBiometricSupport (biometricFunctions) {
         if (navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             if (typeof biometricFunctions['ios'] === 'function') {
-                biometricFunctions['ios']();
+                this.setState({
+                    deviceType: 'ios'
+                }, () => {
+                    biometricFunctions['ios']();
+                });
             }
         } else if (navigator.userAgent.toLowerCase().indexOf('andriod') > 0) {
             if (typeof biometricFunctions['android'] === 'function') {
-                biometricFunctions['andrioid']();
+                this.setState({
+                    deviceType: 'android'
+                }, () => {
+                    biometricFunctions['andrioid']();
+                });
             }
         } else {
             console.info(`Platform not recognized while checking for biometric auth availability.`);
@@ -402,7 +478,8 @@ class BiometricScreen extends React.Component {
                 // biometric auth is available
                 console.info(`iOS biometric auth is available, type is ${type}`);
                 that.setState({
-                    biometricsSupported: true
+                    biometricsSupported: true,
+                    biometricType: (type === 'face' ? 'face' : 'touch')
                 });
             },
             function (message) {
@@ -422,7 +499,8 @@ class BiometricScreen extends React.Component {
                 // biometric auth is available
                 console.info(`Android biometric auth is available, result is ${JSON.stringify(result)}`);
                 that.setState({
-                    biometricsSupported: true
+                    biometricsSupported: true,
+                    biometricType: 'fingerprint'
                 });
             },
             function (message) {
@@ -493,7 +571,7 @@ class SignupScreen extends React.Component {
                             organizations={this.state.organizations}/>
                     </Slide>
                     <Slide>
-                        <BiometricScreenStyled/>
+                        <BiometricScreenStyled countryCode={this.state.countryCode} phoneNumber={this.state.phoneNumber} bearerToken={this.state.bearerToken}/>
                     </Slide>
                 </Carousel>
             </div>
