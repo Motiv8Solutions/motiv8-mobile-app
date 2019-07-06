@@ -5,6 +5,7 @@ import  { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import UserService from './../Services/UserService';
+import BiometricService from './../Services/BiometricService';
 
 class MobileNumberEntry extends React.Component {
     countryCode = null;
@@ -58,11 +59,19 @@ class MobileNumberEntry extends React.Component {
 
     async submitMobileNumber () {
         let orgResponse = await this.userService.lookupMobileNumber(this.state.countryCode, this.state.mobileNumber);
-        console.info(`orgs = ${JSON.stringify(orgResponse.data)}`);
-        if (typeof this.props.onOrgsChange === 'function') {
-            this.props.onOrgsChange(orgResponse.data);
+        if (orgResponse.status === 200) {
+            console.info(`orgs = ${JSON.stringify(orgResponse.data)}`);
+
+            // // store the phone number in local storage because it has been validated
+            // window.localStorage.setItem('phoneNumber', `${this.state.countryCode}-${this.state.mobileNumber}`);
+
+            if (typeof this.props.onOrgsChange === 'function') {
+                this.props.onOrgsChange(orgResponse.data);
+            }
+            this.props.carousal.current.onRightNavClick();
+        } else {
+            // TODO: handle the error case
         }
-        this.props.carousal.current.onRightNavClick();
     }
 };
 
@@ -241,58 +250,6 @@ const CodeEntryStyled = styled(injectIntl(CodeEntry))`
     }
 `;
 
-class PasswordEntry extends React.Component {
-    constructor (props) {
-        super(props);
-        this.userService = new UserService();
-    }
-
-    render () {
-        let organization = this.props.organizations ? this.props.organizations[0] : null;
-        let orgName = organization ? organization.orgName : null;
-        return (
-            <div className={this.props.className}>
-                <div>
-                    <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
-                    <div className='content firstLine'>
-                        <Textbox charSize={3} value={this.props.countryCode} disabled={true} />
-                        <Textbox className='mobileNumber' size='medium' value={this.props.mobileNumber} disabled={true} />
-                    </div>
-                    <div className='content secondLine'>
-                        <Textbox className='org' size='medium' value={orgName} disabled={true} />
-                    </div>
-                    <div className='content thirdLine'>
-                        <Textbox type='password' className='pwd' size='medium' />
-                    </div>
-                    <div className='content fourthLine'>
-                        <Textbox type='password' className='pwd' size='medium' />
-                    </div>
-                    <div className='content fifthLine'>
-                        <PrimaryButton text={this.props.intl.formatMessage({id: 'SIGN_UP'})}/>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-const PasswordEntryStyled = styled(injectIntl(PasswordEntry))`
-    display: flex;
-    flex-direction: column;
-    flex: auto;
-    justify-content: center;
-
-    div.content {
-        input.mobileNumber {
-            margin-left: 12px;
-        }
-    }
-
-    div.firstLine {
-        display: flex;
-        flex-direction: row;
-    }
-`;
 
 class BiometricScreen extends React.Component {
     constructor (props) {
@@ -302,10 +259,8 @@ class BiometricScreen extends React.Component {
             biometricType: null,
             deviceType: null
         };
+        this.biometricService = new BiometricService();
         this.handleBiometricUnavailable = this.handleBiometricUnavailable.bind(this);
-        this.checkBiometricSupport = this.checkBiometricSupport.bind(this);
-        this.checkIOSBiometricSupport = this.checkIOSBiometricSupport.bind(this);
-        this.checkAndroidBiometricSupport = this.checkAndroidBiometricSupport.bind(this);
         this.registerBiometrics = this.registerBiometrics.bind(this);
     }
 
@@ -313,11 +268,16 @@ class BiometricScreen extends React.Component {
      * Check for device support for biometric authentication.
      * First launch the correct plugin based on the type of device, iOS or Andriod. We do not support anything else, right now.
      */
-    componentDidMount () {
-        this.checkBiometricSupport({
-            ios: this.checkIOSBiometricSupport,
-            android: this.checkAndroidBiometricSupport
-        })
+    async componentDidMount () {
+        let biometricResult = await this.biometricService.checkBiometricSupport();
+        this.setState({
+            biometricsSupported: biometricResult.biometricsSupported,
+            biometricType: biometricResult.biometricType,
+            deviceType: biometricResult.deviceType
+        }, () => {
+            window.localStorage.setItem('deviceType', this.state.deviceType);
+            window.localStorage.setItem('biometricsSupported', this.state.biometricsSupported);    
+        });
     }
 
     render () {
@@ -400,8 +360,9 @@ class BiometricScreen extends React.Component {
                     // success handler, fingerprint accepted
                     // store the phone number and the bearer token in local storage
                     // TODO: Can we store the bearer token encrypted? Is it required?
-                    window.localStorage.setItem('phoneNumber', `${that.props.countryCode}-${that.props.phoneNumber}`);
-                    window.localStorage.setItem('bearerToken', that.props.bearerToken);
+                    if (typeof that.props.onBiometricsConfirmed === 'function') {
+                        that.props.onBiometricsConfirmed(that.props.bearerToken);
+                    }
                     that.props.history.push('/home');
                 },
                 function (msg) {
@@ -428,94 +389,19 @@ class BiometricScreen extends React.Component {
                     if (result.withFingerprint) {
                         console.info(`BiometricScreen.registerBiometrics: Successfully encrypted credentials, encrypted token: ${result.token}`);
                         // store the phone number and the encrypted token in local storage
-                        window.localStorage.setItem('phoneNumber', `${that.props.countryCode}-${that.props.phoneNumber}`);
-                        window.localStorage.setItem('bearerToken', result.token);
+                        if (typeof that.props.onBiometricsConfirmed === 'function') {
+                            that.props.onBiometricsConfirmed(result.token);
+                        }    
                         that.props.history.push('/home');
                     }
                 },
                 function (error) {
                     // error handler, with error code and localized reason
                     // TODO: What do we do here?
-                    console.error(`BiometricScreen.registerBiometrics: android error in registering biometric authentication, message: ${JSON.stringify(msg)}`);
+                    console.error(`BiometricScreen.registerBiometrics: android error in registering biometric authentication, message: ${JSON.stringify(error)}`);
                 }
             );
         }
-    }
-
-    /**
-     * Helper function that identifies the device type (iOS vs Andriod) and calls the appropriate function that checks for bimetric availability.
-     * @param {func} biometricFunctions A function map of device type and biometric availability functions.
-     */
-    checkBiometricSupport (biometricFunctions) {
-        if (navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-            if (typeof biometricFunctions['ios'] === 'function') {
-                this.setState({
-                    deviceType: 'ios'
-                }, () => {
-                    biometricFunctions['ios']();
-                });
-            }
-        } else if (navigator.userAgent.toLowerCase().indexOf('andriod') > 0) {
-            if (typeof biometricFunctions['android'] === 'function') {
-                this.setState({
-                    deviceType: 'android'
-                }, () => {
-                    biometricFunctions['andrioid']();
-                });
-            }
-        } else {
-            console.info(`Platform not recognized while checking for biometric auth availability.`);
-            this.setState({
-                biometricsSupported: false
-            });
-        }
-    }
-
-    checkIOSBiometricSupport () {
-        let that = this;
-        window.plugins.touchid.isAvailable(
-            function (type) {
-                // biometric auth is available
-                console.info(`iOS biometric auth is available, type is ${type}`);
-                that.setState({
-                    biometricsSupported: true,
-                    biometricType: (type === 'face' ? 'face' : 'touch')
-                });
-            },
-            function (message) {
-                // error function, biometric auth is not available
-                console.warn(`Biometric auth is not available on iOS device. Message is ${JSON.stringify(message)}`);
-                that.setState({
-                    biometricsSupported: false
-                });
-            }
-        )
-    }
-
-    checkAndroidBiometricSupport () {
-        let that = this;
-        FingerprintAuth.isAvailable(
-            function (result) {
-                // biometric auth is available
-                console.info(`Android biometric auth is available, result is ${JSON.stringify(result)}`);
-                that.setState({
-                    biometricsSupported: true,
-                    biometricType: 'fingerprint'
-                });
-            },
-            function (message) {
-                // if (err === 'Cancelled') {
-                //     console.info(`Android fingerprint auth dialog cancelled`);
-                //     // TODO: Show warning message that this is the only form of authentication.
-                //     // with option to re-enroll
-                // }
-                // biometric auth is not available
-                console.warn(`Biometric auth is not available on Android device. Message is ${JSON.stringify(message)}`);
-                that.setState({
-                    biometricsSupported: false
-                });
-            }
-        )
     }
 }
 
@@ -551,7 +437,8 @@ class SignupScreen extends React.Component {
         this.handleOrgsChange = this.handleOrgsChange.bind(this);
         this.handleConfirmOrganizationResponse = this.handleConfirmOrganizationResponse.bind(this);
         this.handleSubmitCodeResponse = this.handleSubmitCodeResponse.bind(this);
-        this.handleSubmitPasswordResponse = this.handleSubmitPasswordResponse.bind(this);
+        this.handleBiometricsConfirmation = this.handleBiometricsConfirmation.bind(this);
+        this.biometricService = new BiometricService();
     }
 
     render () {
@@ -571,7 +458,8 @@ class SignupScreen extends React.Component {
                             organizations={this.state.organizations}/>
                     </Slide>
                     <Slide>
-                        <BiometricScreenStyled countryCode={this.state.countryCode} phoneNumber={this.state.phoneNumber} bearerToken={this.state.bearerToken}/>
+                        <BiometricScreenStyled countryCode={this.state.countryCode} phoneNumber={this.state.phoneNumber} bearerToken={this.state.bearerToken}
+                            onBiometricsConfirmed={this.handleBiometricsConfirmation} />
                     </Slide>
                 </Carousel>
             </div>
@@ -587,13 +475,13 @@ class SignupScreen extends React.Component {
     handleMobileNumberChange (value) {
         this.setState({
             mobileNumber: value
-        })
+        });
     }
 
     handleOrgsChange (value) {
         this.setState({
             organizations: value
-        })
+        });
     }
 
     handleConfirmOrganizationResponse (value) {
@@ -607,11 +495,19 @@ class SignupScreen extends React.Component {
             bearerToken: value
         }, () => {
             console.log(`handleSubmitCodeResponse: bearerToken: ${this.state.bearerToken}`);
+            window.localStorage.setItem('countryCode', this.state.countryCode.toString());
+            window.localStorage.setItem('mobileNumber', this.state.mobileNumber.toString());
+            window.localStorage.setItem('organizations', JSON.stringify(this.state.organizations));
         });
     }
 
-    handleSubmitPasswordResponse (value) {
-
+    /**
+     * This handler is called when the biometrics succeed. We will store all important data to local storage.
+     * @param {string} value If the device is iOS the bearer token, if andriod the encrypted token
+     */
+    handleBiometricsConfirmation (value) {
+        // this value is the bearer token if the device is iOS, else it is an encrypted token if Andriod.
+        window.localStorage.setItem('bearerToken', value);
     }
 };
 
@@ -623,4 +519,3 @@ export default styled(injectIntl(withRouter(SignupScreen)))`
     justify-content: center;
     background-color: ${props => props.theme.colors.secondaryBackground};
 `;
-

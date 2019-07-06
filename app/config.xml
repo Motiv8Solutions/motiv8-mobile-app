@@ -28,6 +28,7 @@
     <plugin name="cordova-plugin-touch-id" spec="^3.4.0">
         <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <preference name="BackupWebStorage" value="local" />
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />
 </widget>

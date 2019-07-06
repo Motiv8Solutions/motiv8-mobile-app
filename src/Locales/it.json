@@ -27,5 +27,7 @@
     "FACE_ID": "Face Id",
     "FINGERPRINT": "Fingerprint",
     "SCAN_FINGERPRINT_MESSAGE": "Scan your fingerprint please",
-    "SCAN_FACE_MESSAGE": "Scan your face please :)"
+    "SCAN_FACE_MESSAGE": "Scan your face please :)",
+    "CODE": "Code",
+    "TOUCH_ID_BUTTON": "Sign in with Touch ID"
 }

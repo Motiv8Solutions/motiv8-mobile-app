@@ -12,7 +12,17 @@ class SplashScreen extends React.Component {
 
     componentDidMount () {
         this.countdownTimer = window.setTimeout(() => {
-            this.props.history.push('/signup');
+            // check if there is a phone number stored in local storage.
+            let mobileNumber = window.localStorage.getItem('mobileNumber');
+            console.log(`SplashScreen.componentDidMount: mobile number: ${mobileNumber}`);
+            // this.props.history.push('/home');
+            if (!mobileNumber) {
+                console.log(`SplashScreen.componentDidMount: phone number not found, directing to sign up.`);
+                this.props.history.push('/signup');
+            } else {
+                console.log(`SplashScreen.componentDidMount: phone number found, directing to sign in.`);
+                this.props.history.push('/signin');
+            }
         }, 2000);
     }
 
