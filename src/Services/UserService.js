@@ -67,4 +67,29 @@ export default class UserService {
             throw e;
         }
     }
+
+    getUsers (tenantID) {
+        const methodName = 'getUsers';
+        const logPrefix = `${serviceName}.${methodName}: `;
+        try {
+            return axios({
+                method: 'get',
+                headers: { 'content-type': 'application/json' },
+                baseURL: baseUrl,
+                url: `/${tenantID}/users`
+            });
+        }
+        catch (e) {
+            console.error(`${logPrefix}Error: ${e.message}`, e);
+            throw e;
+        }
+    }
+
+    addUser (newUser) {
+        
+    }
+
+    editUser (updatedUser) {
+
+    }
 };

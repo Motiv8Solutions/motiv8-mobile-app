@@ -176,6 +176,7 @@ class CodeEntry extends React.Component {
         this.submitCode = this.submitCode.bind(this);
         this.renderCodeTextbox = this.renderCodeTextbox.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
+        this.showMobileNumber = this.showMobileNumber.bind(this);
         this.state = {
             code: ['', '', '', '', '', '']
         };
@@ -187,7 +188,7 @@ class CodeEntry extends React.Component {
                 <div>
                     <Label type='heading1' content={this.props.intl.formatMessage({id: 'COMPANY_TITLE'})} alternate={true}/>
                     <Label type='heading3' content={this.props.intl.formatMessage({id: 'VERIFICATION_TITLE'})} alternate={true}/>
-                    <Label type='body2' content={this.props.intl.formatMessage({id: 'VERIFICATION_MESSAGE'})} alternate={true}/>
+                    <Label type='body2' content={this.props.intl.formatMessage({id: 'VERIFICATION_MESSAGE'}, {mobileNumber: this.showMobileNumber()})} alternate={true}/>
                     <div className='content firstLine'>
                         {this.renderCodeTextbox()}
                         <IconButton className='arrow' icon={faArrowRight} clickHandler={this.submitCode}/>
@@ -195,6 +196,12 @@ class CodeEntry extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    showMobileNumber () {
+        let mobileNumber = this.props.mobileNumber;
+        console.log(`showMobileNumber: ${mobileNumber}`);
+        return mobileNumber;
     }
 
     renderCodeTextbox () {
@@ -455,7 +462,7 @@ class SignupScreen extends React.Component {
                     </Slide>
                     <Slide>
                         <CodeEntryStyled tempToken={this.state.tempToken} carousal={this.carousalRef} onCodeConfirm={this.handleSubmitCodeResponse}
-                            organizations={this.state.organizations}/>
+                            organizations={this.state.organizations} mobileNumber={this.state.mobileNumber}/>
                     </Slide>
                     <Slide>
                         <BiometricScreenStyled countryCode={this.state.countryCode} phoneNumber={this.state.phoneNumber} bearerToken={this.state.bearerToken}

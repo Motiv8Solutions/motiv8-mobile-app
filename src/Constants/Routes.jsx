@@ -5,6 +5,7 @@ import ContactScreen from '../Screens/ContactScreen';
 import ProgramsScreen from '../Screens/ProgramsScreen';
 import ContestScreen from '../Screens/ContestScreen';
 import SignupScreen from '../Screens/SignupScreen';
+import UsersScreen from '../Screens/UsersScreen';
 import { ParticipantView } from 'motiv8-atoms';
 import React from 'react';
 
@@ -62,6 +63,14 @@ const routes = [
         renderFn: function () {
             return (
                 <ContactScreen/>
+            );
+        }
+    },
+    {
+        path: '/users',
+        renderFn: function () {
+            return (
+                <UsersScreen/>
             );
         }
     },

@@ -15,7 +15,7 @@
     "COMPANY_TAGLINE": "Sell stuff, get paid.",
     "MOBILE_PLACEHOLDER": "Mobile number",
     "VERIFICATION_TITLE": "Verification Code",
-    "VERIFICATION_MESSAGE": "A verification code  has been sent to your mobile phone at (***)***-1234",
+    "VERIFICATION_MESSAGE": "A verification code  has been sent to your mobile phone at {mobileNumber}",
     "SIGN_UP": "SIGN UP",
     "BIOMETRIC_MESSAGE_OPT_IN": "Motiv8 mobile app uses Biometric authentication on your device for extra security. No passwords!",
     "BIOMETRIC_MESSAGE_OPT_OUT": "If you opt out of Biometric authentication, you will have the option of signing in with a code everytime you use the Motiv8 mobile app. Click the button below to opt out.",
@@ -29,5 +29,6 @@
     "SCAN_FINGERPRINT_MESSAGE": "Scan your fingerprint please",
     "SCAN_FACE_MESSAGE": "Scan your face please :)",
     "CODE": "Code",
-    "TOUCH_ID_BUTTON": "Sign in with Touch ID"
+    "TOUCH_ID_BUTTON": "Sign in with Touch ID",
+    "USERS": "Users"
 }

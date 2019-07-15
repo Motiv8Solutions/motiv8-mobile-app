@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { Label } from 'motiv8-atoms';
-import { faBullhorn, faStar, faWallet, faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn, faStar, faWallet, faMoneyBillAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class ProgramsScreen extends React.Component {
@@ -25,6 +25,10 @@ export class ProgramsScreen extends React.Component {
                 <div className='programCard' onClick={this.handleClick.bind(this, 'commission')}>
                     <FontAwesomeIcon className='icon commissionIcon' icon={faMoneyBillAlt} size='3x'/>
                     <Label type='body2' content={this.props.intl.formatMessage({ id: 'COMMISSION' })}/>
+                </div>
+                <div className='programCard' onClick={this.handleClick.bind(this, 'users')}>
+                    <FontAwesomeIcon className='icon usersIcon' icon={faUsers} size='3x'/>
+                    <Label type='body2' content={this.props.intl.formatMessage({ id: 'USERS' })}/>
                 </div>
             </div>
         );
@@ -77,5 +81,9 @@ export default styled(injectIntl(withRouter(ProgramsScreen)))`
 
     .commissionIcon {
         color: ${props => props.theme.colors.green400};
+    }
+
+    .usersIcon {
+        color: ${props => props.theme.colors.borderGrey300};
     }
 `;
