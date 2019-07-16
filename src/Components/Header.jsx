@@ -23,7 +23,7 @@ class Header extends React.Component {
                     text: 'Programs',
                     back: true,
                     action: function () {
-                        props.history.push('./programs');
+                        props.history.push('/programs');
                     }
                 },
                 {

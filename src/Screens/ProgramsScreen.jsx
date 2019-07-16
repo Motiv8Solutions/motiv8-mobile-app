@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class ProgramsScreen extends React.Component {
     render () {
+        let tenantID = 3432; // get the tenantID from local storage
         return (
             <div className={this.props.className}>
                 <div className='programCard' onClick={this.handleClick.bind(this, 'announcement')}>
@@ -26,7 +27,7 @@ export class ProgramsScreen extends React.Component {
                     <FontAwesomeIcon className='icon commissionIcon' icon={faMoneyBillAlt} size='3x'/>
                     <Label type='body2' content={this.props.intl.formatMessage({ id: 'COMMISSION' })}/>
                 </div>
-                <div className='programCard' onClick={this.handleClick.bind(this, 'users')}>
+                <div className='programCard' onClick={this.handleClick.bind(this, `${tenantID}/users`)}>
                     <FontAwesomeIcon className='icon usersIcon' icon={faUsers} size='3x'/>
                     <Label type='body2' content={this.props.intl.formatMessage({ id: 'USERS' })}/>
                 </div>

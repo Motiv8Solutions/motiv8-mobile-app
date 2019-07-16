@@ -85,8 +85,29 @@ export default class UserService {
         }
     }
 
+    getUserForm (tenantID, id) {
+        const methodName = 'getUserForm';
+        const logPrefix = `${serviceName}.${methodName}: `;
+        let url = `/${tenantID}/forms/user`;
+        if (id !== null && id !== undefined) {
+            url = `/${tenantID}/forms/user/${id}`;
+        }
+        try {
+            return axios({
+                method: 'get',
+                headers: { 'content-type': 'application/json' },
+                baseURL: baseUrl,
+                url: url
+            });
+        }
+        catch (e) {
+            console.error(`${logPrefix}Error: ${e.message}`, e);
+            throw e;
+        }
+    }
+
     addUser (newUser) {
-        
+
     }
 
     editUser (updatedUser) {
