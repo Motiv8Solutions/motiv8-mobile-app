@@ -6,7 +6,7 @@ import ProgramsScreen from '../Screens/ProgramsScreen';
 import ContestScreen from '../Screens/ContestScreen';
 import SignupScreen from '../Screens/SignupScreen';
 import UsersScreen from '../Screens/UsersScreen';
-import UserForm from '../Screens/UserForm';
+import FormScreen from '../Screens/FormScreen';
 import { ParticipantView } from 'motiv8-atoms';
 import React from 'react';
 
@@ -68,15 +68,15 @@ const routes = [
         }
     },
     {
-        path: '/:tenantID/users/:id',
+        path: '/:tenantId/users/:id',
         renderFn: function (routeProps) {
             return (
-                <UserForm tenantID={routeProps.match.params.tenantID} id={routeProps.match.params.id}/>
+                <FormScreen type='contest' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
             );
         }
     },
     {
-        path: '/:tenantID/users',
+        path: '/:tenantId/users',
         exact: true,
         renderFn: function (routeProps) {
             return (
