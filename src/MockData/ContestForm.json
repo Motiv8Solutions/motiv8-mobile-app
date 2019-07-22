@@ -1,0 +1,328 @@
+{
+    "name": "createContest",
+    "type": {
+        "component": "FORM",
+        "content": [
+            {
+                "name": "title",
+                "type": {
+                    "component": "TEXT"
+                },
+                "icon": null,
+                "label": "ENTER_TITLE",
+                "required": true,
+                "disabled": false,
+                "validations": [
+                    {
+                        "rule": null,
+                        "message": {
+                            "key": "TITLE_VALIDATION_MESSAGE"
+                        }
+                    }
+                ],
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "startDate",
+                "type": {
+                    "component": "DATE"
+                },
+                "icon": "calendar",
+                "label": "ENTER_START_DATE",
+                "required": true,
+                "disabled": false,
+                "validations": [
+                    {
+                        "rule": null,
+                        "message": {
+                            "key": "START_DATE_VALIDATION_MESSAGE"
+                        }
+                    }
+                ],
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "endDate",
+                "type": {
+                    "component": "DATE"
+                },
+                "icon": "calendar",
+                "label": "ENTER_END_DATE",
+                "required": true,
+                "disabled": false,
+                "validations": [
+                    {
+                        "rule": null,
+                        "message": {
+                            "key": "END_DATE_VALIDATION_MESSAGE"
+                        }
+                    },
+                    {
+                        "rule": null,
+                        "message": {
+                            "key": "END_DATE_LESS_THAN_START_DATE_VALIDATION_MESSAGE"
+                        }
+                    }
+                ],
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "audience",
+                "type": {
+                    "component": "AUDIENCE"
+                },
+                "icon": "people",
+                "label": "AUDIENCE",
+                "required": true,
+                "disabled": false,
+                "validations": [],
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "winners",
+                "type": {
+                    "component": "NUMBER"
+                },
+                "icon": "trophy",
+                "label": "WINNERS",
+                "required": true,
+                "disabled": false,
+                "validations": [
+                    {
+                        "rule": null,
+                        "message": {
+                            "key": "WINNERS_VALIDATION_MESSAGE"
+                        }
+                    }
+                ],
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "goal",
+                "type": {
+                    "component": "FORM",
+                    "content": [
+                        {
+                            "name": "unit",
+                            "type": {
+                                "component": "SINGLESELECT",
+                                "content": [
+                                    { "value": "items", "label": "GOAL_UNIT_ITEMS" },
+                                    { "value": "pairs", "label": "GOAL_UNIT_PAIRS" },
+                                    { "value": "usdollars", "label": "GOAL_US_DOLLARS_ITEMS" }
+                                ]
+                            },
+                            "icon": null,
+                            "label": "GOAL_UNIT",
+                            "required": true,
+                            "disabled": false,
+                            "validations": [],
+                            "display": null,
+                            "value": null
+                        },
+                        {
+                            "name": "amount",
+                            "type": {
+                                "component": "NUMBER"
+                            },
+                            "icon": null,
+                            "label": "GOAL_AMOUNT",
+                            "required": true,
+                            "disabled": false,
+                            "validations": [
+                                {
+                                    "rule": null,
+                                    "message": {
+                                        "key": "GOAL_AMOUNT_VALIDATION_MESSAGE"
+                                    }
+                                }
+                            ],
+                            "display": null,
+                            "value": null
+                        },
+                        {
+                            "name": "product",
+                            "type": {
+                                "component": "TEXT"
+                            },
+                            "icon": null,
+                            "label": "GOAL_PRODUCT",
+                            "required": true,
+                            "disabled": false,
+                            "validations": [],
+                            "display": null,
+                            "value": null
+                        }
+                    ]
+                },
+                "icon": "goal",
+                "label": "GOAL",
+                "required": true,
+                "disabled": false,
+                "validations": null,
+                "display": null,
+                "value": null
+            }, 
+            {
+                "name": "reward",
+                "type": {
+                    "component": "FORM",
+                    "content": [
+                        {
+                            "name": "rewardSchedule",
+                            "type": {
+                                "component": "SINGLESELECT",
+                                "content": [
+                                    { "value": "everytime", "label": "EVERYTIME"},
+                                    { "value": "once", "label": "ONCE" }
+                                ]
+                            },
+                            "icon": null,
+                            "label": "GIVE_A_REWARD",
+                            "required": true,
+                            "disabled": false,
+                            "display": null,
+                            "value": null
+                        },
+                        {
+                            "name": "reward",
+                            "type": {
+                                "component": "SINGLESELECT",
+                                "content": [
+                                    { "value": "none", "label": "NONE"},
+                                    { "value": "cash", "label": "CASH"},
+                                    { "value": "giftCard", "label": "GIFT_CARD" },
+                                    { "value": "merchandise", "label": "MERCHANDISE" }
+                                ]
+                            },
+                            "icon": null,
+                            "label": "GIVE_A_REWARD",
+                            "required": true,
+                            "disabled": false,
+                            "display": null,
+                            "value": null
+                        },
+                        {
+                            "name": "product",
+                            "type": {
+                                "component": "TEXT"
+                            },
+                            "icon": null,
+                            "label": "PRODUCT",
+                            "required": true,
+                            "disabled": false,
+                            "display": null,
+                            "value": null,
+                            "visibility": null
+                        },
+                        {
+                            "name": "giftCardCompany",
+                            "type": {
+                                "component": "TEXT"
+                            },
+                            "icon": null,
+                            "label": "COMPANY",
+                            "required": false,
+                            "disabled": false,
+                            "value": null,
+                            "display": null,
+                            "visibility": null
+                        },
+                        {
+                            "null": "giftCardAmount",
+                            "type": {
+                                "component": "NUMBER"
+                            },
+                            "icon": null,
+                            "label": "AMOUNT",
+                            "required": false,
+                            "disabled": false,
+                            "value": null,
+                            "display": null,
+                            "visibility": null
+                        },
+                        {
+                            "name": "cashAmount",
+                            "type": {
+                                "component": "NUMBER"
+                            },
+                            "icon": null,
+                            "label": "AMOUNT",
+                            "required": false,
+                            "disabled": false,
+                            "value": null,
+                            "display": null,
+                            "visibility": null
+                        }
+                    ]
+                },
+                "icon": "trophy",
+                "label": "REWARD",
+                "required": true,
+                "disabled": false,
+                "validations": null,
+                "display": null,
+                "value": null
+            },
+            {
+                "name": "notifications",
+                "type": {
+                    "component": "FORM",
+                    "content": [
+                        {
+                            "name": "notificationFrequency",
+                            "type": {
+                                "component": "SINGLESELECT",
+                                "options": [
+                                    { "value": "none", "label": "NONE" },
+                                    { "value": "contestStart", "label": "CONTEST_START" },
+                                    { "value": "contestMidPoint", "label": "CONTEST_MIDPOINT" },
+                                    { "value": "contestEnd", "label": "CONTEST_END" }
+                                ]
+                            },
+                            "icon": null,
+                            "label": "NOTIFICATIONS",
+                            "required": false,
+                            "disabled": false,
+                            "validations": null,
+                            "display": null,
+                            "value": null
+                        },
+                        {
+                            "name": "notificationMessage",
+                            "type": {
+                                "component": "RICHTEXT"
+                            },
+                            "icon": null,
+                            "label": "MESSAGE",
+                            "required": false,
+                            "disabled": false,
+                            "validations": null,
+                            "display": null,
+                            "value": null
+                        }
+                    ]
+                },
+                "icon": "bell",
+                "label": "NOTIFICATIONS",
+                "required": false,
+                "disabled": false,
+                "validations": null,
+                "display": null,
+                "value": null
+            }
+        ]
+    },
+    "icon": null,
+    "label": "CREATE_CONTEST",
+    "required": true,
+    "disabled": false,
+    "validations": null,
+    "display": null,
+    "value": null
+}

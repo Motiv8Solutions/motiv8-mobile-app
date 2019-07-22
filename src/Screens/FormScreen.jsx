@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import FormService from '../Services/FormService';
 import Form from './../ResuableComponents/Organisms/Form/Form';
+import ContestForm from './../MockData/ContestForm.json';
+
+const MOCK = true;
 
 /**
  * This component gets the form json for a given form type, tenant id and form id and renders the form using the Form component.
@@ -25,21 +28,27 @@ export class FormScreen extends React.Component {
             id = null;
         }
         let type = this.props.type;
-        let formResponse = await this.formService.getForm(type, this.props.tenantId, id);
-        if (formResponse.status === 200) {
-            console.info(`form = ${JSON.stringify(formResponse.data)}`);
-            let formStack = this.state.formStack;
-            let formIndex = this.state.formIndex;
-            formStack.push(formResponse.data);
-            formIndex = formIndex === null ? -1: formIndex;
-            formIndex++;
-            this.setState({
-                formStack: formStack,
-                formIndex: formIndex
-            });
+        let formData = null;
+        if (MOCK === true) {
+            formData = ContestForm;
         } else {
-            // TODO: Handle the error case
+            let formResponse = await this.formService.getForm(type, this.props.tenantId, id);
+            if (formResponse.status === 200) {
+                formData = formResponse.data;
+            } else {
+                // TODO: Handle the error case
+            }
         }
+        console.info(`form = ${JSON.stringify(formData)}`);
+        let formStack = this.state.formStack;
+        let formIndex = this.state.formIndex;
+        formStack.push(formData);
+        formIndex = formIndex === null ? -1: formIndex;
+        formIndex++;
+        this.setState({
+            formStack: formStack,
+            formIndex: formIndex
+        });
     }
 
     render () {
