@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { MOCK } from './../Constants/AppConstants';
+import ContestForm from './../MockData/ContestForm.json';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 const serviceName = 'FormService';
@@ -15,6 +17,14 @@ export default class FormService {
             url = `${url}/${id}`;
         }
         try {
+            if (MOCK) {
+                return new Promise((resolve, reject) => {
+                    resolve({
+                        status: 200,
+                        data: ContestForm
+                    });
+                });
+            }
             return axios({
                 method: 'get',
                 headers: { 'content-type': 'application/json' },

@@ -57,7 +57,15 @@ export class Form extends React.Component {
                 );
             case 'SINGLESELECT':
                 return (
-                    <select></select>
+                    <select>
+                        {
+                            formRow.type.content.map((option, index) => {
+                                return (
+                                    <option key={`option${index}`} value={option.value}>{option.label}</option>
+                                )
+                            })
+                        }
+                    </select>
                 );
             case 'RICHTEXT':
                 return (

@@ -278,7 +278,7 @@
                             "name": "notificationFrequency",
                             "type": {
                                 "component": "SINGLESELECT",
-                                "options": [
+                                "content": [
                                     { "value": "none", "label": "NONE" },
                                     { "value": "contestStart", "label": "CONTEST_START" },
                                     { "value": "contestMidPoint", "label": "CONTEST_MIDPOINT" },

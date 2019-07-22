@@ -13,11 +13,13 @@ class LoginScreen extends React.Component {
         super(props);
         this.state = {
             countryCode: null,
-            mobileNumber: null
+            mobileNumber: null,
+            code: null
         };
         this.signIn = this.signIn.bind(this);
         this.handleCountryCode = this.handleCountryCode.bind(this);
         this.showTouchId = this.showTouchId.bind(this);
+        this.handleCode = this.handleCode.bind(this);
         this.biometricService = new BiometricService();
     }
 
@@ -56,7 +58,7 @@ class LoginScreen extends React.Component {
                         </div>
                         {this.renderOrgs()}
                         <div className='codeContainer'>
-                            <Textbox id='code' placeholder={this.props.intl.formatMessage({ id: 'CODE' })} charSize={6} />
+                            <Textbox id='code' value={this.state.code} placeholder={this.props.intl.formatMessage({ id: 'CODE' })} charSize={6} onChange={this.handleCode} />
                             {this.state.biometricsSupported === true ? <PrimaryButton id='touchIdButton' text={this.props.intl.formatMessage({ id: 'TOUCH_ID_BUTTON' })} clickHandler={this.showTouchId} quiet={true} /> : null}
                         </div>
                         <PrimaryButton id='signInButton' text={this.props.intl.formatMessage({ id: 'SIGN_IN_BUTTON' })} type='submit' />
@@ -162,6 +164,12 @@ class LoginScreen extends React.Component {
      */
     handleOrgChange (event) {
         console.log(`org change handler: value = ${JSON.stringify(event.target.value)}`);
+    }
+
+    handleCode (value) {
+        this.setState({
+            code: value
+        });
     }
 
     signIn () {

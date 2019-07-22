@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppHeader } from 'motiv8-atoms';
-import { faBars, faCarrot, faTrophy, faCalculator, faQuestion, faHandsHelping, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCarrot, faTrophy, faCalculator, faQuestion, faHandsHelping, faSignOutAlt, faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router';
 
 function action (index, item) {
@@ -50,6 +50,22 @@ class Header extends React.Component {
                     back: true,
                     action: function () {
                         props.history.push('/contact');
+                    }
+                },
+                {
+                    icon: faUserPlus,
+                    text: 'Sign up',
+                    back: true,
+                    action: function () {
+                        props.history.push('/signup');
+                    }
+                },
+                {
+                    icon: faSignInAlt,
+                    text: 'Sign in',
+                    back: true,
+                    action: function () {
+                        props.history.push('/signin');
                     }
                 },
                 {
