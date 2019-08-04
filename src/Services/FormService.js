@@ -7,6 +7,7 @@ const serviceName = 'FormService';
 
 /**
  * The Form service gets the JSON for the form type asked for as a new or existing form.
+ * TODO: Think about where the key 'contest' should come from?
  */
 export default class FormService {
     getForm (type, tenantId, id) {
@@ -21,7 +22,7 @@ export default class FormService {
                 return new Promise((resolve, reject) => {
                     resolve({
                         status: 200,
-                        data: ContestForm
+                        data: ContestForm['contest']
                     });
                 });
             }

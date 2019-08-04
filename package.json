@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "axios": "^0.18.0",
+    "json-logic-js": "^1.2.2",
     "lodash": "^4.17.11",
     "motiv8-atoms": "git+https://github.com/Motiv8Solutions/motiv8-atoms.git#e3124c996b645ac818b55e79d12834ff5063c612",
     "motiv8-client-services": "git+https://github.com/Motiv8Solutions/motiv8-client-services.git#2800ceb66f92646353ad659fb49e1a0026f642a1",

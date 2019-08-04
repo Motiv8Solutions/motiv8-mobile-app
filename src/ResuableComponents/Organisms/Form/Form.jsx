@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import jsonLogic from 'json-logic-js';
 
 export class Form extends React.Component {
     constructor () {
@@ -17,19 +18,46 @@ export class Form extends React.Component {
         );
     }
 
+    /**
+     * Renders the form.
+     * @param {object} content The content object contains the form rows. Each row is an object with the key as the unique identifier for the row.
+     */
     renderContent (content) {
-        return content.map((formRow, index) => {
-            return (
-                <div key={`formRow${index}`} className='formRow'>
-                    <div className='label'>{formRow.label}</div>
-                    <div className='component'>{this.renderComponent(formRow)}</div>
-                </div>
-            )
+        let contentKeys = Object.keys(content);
+        return contentKeys.map((key, keyIndex, contentKeys) => {
+            let component = content[key];
+            if (component) {
+                let visibility = component.visibility;
+                if (visibility) {
+                    // if the visibility rule matches the data value, show the component.
+                    if (jsonLogic.apply(visibility, content)) {
+                        return (
+                            <div key={`formRow${keyIndex}`} className='formRow'>
+                                <div className='label'>{component.label}</div>
+                                <div className='component'>{this.renderComponent(component, key)}</div>
+                            </div>
+                        );
+                    }
+                    // The visibility rule did not match the data, dont render the component.
+                    return null;
+                }
+                // render the component since there is no visibility rule to apply.
+                return (
+                    <div key={`formRow${keyIndex}`} className='formRow'>
+                        <div className='label'>{component.label}</div>
+                        <div className='component'>{this.renderComponent(component, key)}</div>
+                    </div>
+                );
+            } else {
+                throw new Error(`component JSON not found for key: ${key}`);
+            }
         });
     }
 
-    renderComponent (formRow) {
-        let componentType = formRow.type.component;
+    renderComponent (component, key) {
+        let componentType = component.type.component;
+        let componentName = key;
+        let componentValue = component.value || '';
         switch (componentType.toUpperCase()) {
             case 'TEXT':
                 return (
@@ -53,13 +81,13 @@ export class Form extends React.Component {
                 );
             case 'FORM':
                 return (
-                    <button onClick={this.formButtonClickHandler.bind(this, formRow)}>{`${formRow.label} >`}</button>
+                    <button onClick={this.formButtonClickHandler.bind(this, component)}>{`${component.label} >`}</button>
                 );
             case 'SINGLESELECT':
                 return (
-                    <select>
+                    <select value={componentValue} onChange={this.handleChange.bind(this, componentName)}>
                         {
-                            formRow.type.content.map((option, index) => {
+                            component.type.content.map((option, index) => {
                                 return (
                                     <option key={`option${index}`} value={option.value}>{option.label}</option>
                                 )
@@ -75,6 +103,12 @@ export class Form extends React.Component {
                 return (
                     <div>{`Unknown component type: ${componentType}`}</div>
                 );
+        }
+    }
+
+    handleChange (name, e) {
+        if (typeof this.props.onFormRowChange === 'function') {
+            this.props.onFormRowChange(name, e.target.value);
         }
     }
 

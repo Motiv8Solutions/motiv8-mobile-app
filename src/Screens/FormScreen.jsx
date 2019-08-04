@@ -17,6 +17,7 @@ export class FormScreen extends React.Component {
         this.addFormToStackHandler = this.addFormToStackHandler.bind(this);
         this.renderBackButton = this.renderBackButton.bind(this);
         this.backButtonClickHandler = this.backButtonClickHandler.bind(this);
+        this.formRowChangeHandler = this.formRowChangeHandler.bind(this);
     }
 
     async componentDidMount () {
@@ -27,7 +28,6 @@ export class FormScreen extends React.Component {
         let type = this.props.type;
         let formResponse = await this.formService.getForm(type, this.props.tenantId, id);
         if (formResponse.status === 200) {
-            console.info(`form = ${JSON.stringify(formResponse.data)}`);
             let formStack = this.state.formStack;
             let formIndex = this.state.formIndex;
             formStack.push(formResponse.data);
@@ -62,17 +62,21 @@ export class FormScreen extends React.Component {
                             </div>
                         </div>
                         <Form id={this.props.id} type={this.props.type} tenantId={this.props.tenantId} content={form.type.content}
-                            addFormToStack={this.addFormToStackHandler}/>
+                            addFormToStack={this.addFormToStackHandler} onFormRowChange={this.formRowChangeHandler}/>
                     </div>
                 );
             }
         } else {
             return (
-                <div className='error'>Component type was not 'FORM'</div>
+                <div className={this.props.className}>Component type was not 'FORM'</div>
             )
         }
     }
 
+    /**
+     * The stack keeps track of nested forms.
+     * @param {object} form The form being added to the stack.
+     */
     addFormToStackHandler (form) {
         let formStack = this.state.formStack;
         let formIndex = this.state.formIndex;
@@ -85,6 +89,9 @@ export class FormScreen extends React.Component {
         });
     }
 
+    /**
+     * Renders the form back button if nested forms are being displayed.
+     */
     renderBackButton () {
         let formIndex = this.state.formIndex;
         if (formIndex > 0) {
@@ -96,6 +103,9 @@ export class FormScreen extends React.Component {
         }
     }
 
+    /**
+     * When the back button is clicked pop the current form from the stack.
+     */
     backButtonClickHandler () {
         let formIndex = this.state.formIndex;
         let formStack = this.state.formStack;
@@ -106,6 +116,24 @@ export class FormScreen extends React.Component {
         this.setState({
             formIndex: formIndex,
             formStack: formStack
+        });
+    }
+
+    /**
+     * This function is passed into the Form component. Whenever there is a change in the value of any of the form rows or components,
+     * this function will be called with the updated value. We will update the form content with the value.
+     * @param {string} name The name of the form row or component. 
+     * @param {string} value The value of the form row/component.
+     */
+    formRowChangeHandler (name, value) {
+        let formStack = this.state.formStack;
+        let currentForm = formStack[this.state.formIndex];
+        let content = currentForm.type.content;
+        content[name].value = value;
+        this.setState({
+            formStack: formStack
+        }, () => {
+            console.log(`complete form: ${JSON.stringify(this.state.formStack[0], null, 4)}`);
         });
     }
 };
@@ -119,7 +147,6 @@ export default styled(FormScreen)`
         color: #FFFFFF;
         display: flex;
         flex-direction: row;
-        // flex: 1;
         align-items: center;
         justify-content: center;
 
