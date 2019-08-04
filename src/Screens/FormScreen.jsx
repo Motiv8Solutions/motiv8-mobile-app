@@ -38,7 +38,7 @@ export class FormScreen extends React.Component {
                 formIndex: formIndex
             });
         } else {
-            // TODO: Handle the error case
+            throw new Error(`The FormService.getForm method returned a status other than 200. Status returned: ${formResponse.status}`);
         }
     }
 
@@ -65,12 +65,11 @@ export class FormScreen extends React.Component {
                             addFormToStack={this.addFormToStackHandler} onFormRowChange={this.formRowChangeHandler}/>
                     </div>
                 );
+            } else {
+                throw new Error(`Found form object but could not find type.component property with value 'FORM'`);
             }
-        } else {
-            return (
-                <div className={this.props.className}>Component type was not 'FORM'</div>
-            )
         }
+        return null;
     }
 
     /**

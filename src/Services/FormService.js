@@ -22,7 +22,7 @@ export default class FormService {
                 return new Promise((resolve, reject) => {
                     resolve({
                         status: 200,
-                        data: ContestForm['contest']
+                        data: ContestForm[type]
                     });
                 });
             }

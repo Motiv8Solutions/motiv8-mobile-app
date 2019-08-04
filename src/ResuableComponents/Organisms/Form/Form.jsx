@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import jsonLogic from 'json-logic-js';
+import Text from './../../Atoms/Text/Text';
+import Select from './../../Atoms/Select/Select';
+import Button from './../../Atoms/Button/Button';
 
 export class Form extends React.Component {
     constructor () {
         super();
         this.renderContent = this.renderContent.bind(this);
         this.formButtonClickHandler = this.formButtonClickHandler.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
     }
 
     render () {
@@ -19,7 +23,7 @@ export class Form extends React.Component {
     }
 
     /**
-     * Renders the form.
+     * Renders the form from the JSON.
      * @param {object} content The content object contains the form rows. Each row is an object with the key as the unique identifier for the row.
      */
     renderContent (content) {
@@ -54,6 +58,11 @@ export class Form extends React.Component {
         });
     }
 
+    /**
+     * Renders a single component from the form JSON.
+     * @param {object} component The JSON corresponding to the component.
+     * @param {*} key The name of the component in the form JSON.
+     */
     renderComponent (component, key) {
         let componentType = component.type.component;
         let componentName = key;
@@ -61,15 +70,15 @@ export class Form extends React.Component {
         switch (componentType.toUpperCase()) {
             case 'TEXT':
                 return (
-                    <input type='text'/>
+                    <Text type='text' value={componentValue} name={componentName} onChange={this.changeHandler}/>
                 );
             case 'DATE':
                 return (
-                    <input type='date'/>
+                    <Text type='date' value={componentValue} name={componentName} onChange={this.changeHandler}/>
                 );
             case 'TIME':
                 return (
-                    <input type='time'/>
+                    <Text type='time' value={componentValue} name={componentName} onChange={this.changeHandler}/>
                 );
             case 'AUDIENCE':
                 return (
@@ -77,23 +86,15 @@ export class Form extends React.Component {
                 );
             case 'NUMBER':
                 return (
-                    <input type='number'/>
+                    <Text type='number' value={componentValue} name={componentName} onChange={this.changeHandler}/>
                 );
             case 'FORM':
                 return (
-                    <button onClick={this.formButtonClickHandler.bind(this, component)}>{`${component.label} >`}</button>
+                    <Button form={component} label={component.label} onClick={this.formButtonClickHandler}/>
                 );
             case 'SINGLESELECT':
                 return (
-                    <select value={componentValue} onChange={this.handleChange.bind(this, componentName)}>
-                        {
-                            component.type.content.map((option, index) => {
-                                return (
-                                    <option key={`option${index}`} value={option.value}>{option.label}</option>
-                                )
-                            })
-                        }
-                    </select>
+                    <Select value={componentValue} name={componentName} options={component.type.content} onChange={this.changeHandler}/>
                 );
             case 'RICHTEXT':
                 return (
@@ -106,12 +107,32 @@ export class Form extends React.Component {
         }
     }
 
+    /**
+     * When there is a change in the value of the component this function is called.
+     * @param {string} name The name of the component which corresponds to the name in the form JSON.
+     * @param {string} value Value of the component.
+     */
+    changeHandler (name, value) {
+        if (typeof this.props.onFormRowChange === 'function') {
+            this.props.onFormRowChange(name, value);
+        }
+    }
+
+    /**
+     * Temporary function called when there is a change in the <select> component.
+     * @param {string} name The name of the component in the form JSON.
+     * @param {object} e The event object.
+     */
     handleChange (name, e) {
         if (typeof this.props.onFormRowChange === 'function') {
             this.props.onFormRowChange(name, e.target.value);
         }
     }
 
+    /**
+     * This function is called when a sub form button is clicked.
+     * @param {object} content The content of the form.
+     */
     formButtonClickHandler (content) {
         if (typeof this.props.addFormToStack === 'function') {
             this.props.addFormToStack(content);
