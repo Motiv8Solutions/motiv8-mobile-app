@@ -1,0 +1,176 @@
+{
+    "user": {
+        "type": {
+            "component": "FORM",
+            "content": {
+                "lastName": {
+                    "type": {
+                        "component": "TEXT"
+                    },
+                    "icon": null,
+                    "label": "LAST_NAME",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "firstName": {
+                    "type": {
+                        "component": "TEXT"
+                    },
+                    "icon": null,
+                    "label": "FIRST_NAME",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "email": {
+                    "type": {
+                        "component": "TEXT"
+                    },
+                    "icon": null,
+                    "label": "EMAIL",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [
+                        {
+                            "rule": null,
+                            "message": {
+                                "key": "EMAIL_VALIDATION_MESSAGE"
+                            }
+                        }
+                    ],
+                    "display": null,
+                    "value": null
+                },
+                "mobile": {
+                    "type": {
+                        "component": "NUMBER"
+                    },
+                    "icon": null,
+                    "label": "MOBILE",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [
+                        {
+                            "rule": null,
+                            "message": {
+                                "key": "MOBILE_VALIDATION_MESSAGE"
+                            }
+                        }
+                    ],
+                    "display": null,
+                    "value": null
+                },
+                "location": {
+                    "type": {
+                        "component": "LIST"
+                    },
+                    "icon": null,
+                    "label": "LOCATION",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "payCurrency": {
+                    "type": {
+                        "component": "TEXT"
+                    },
+                    "icon": null,
+                    "label": "PAY_CURRENCY",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [
+                        {
+                            "rule": null,
+                            "message": {
+                                "key": "PAY_CURRENCY_VALIDATION_MESSAGE"
+                            }
+                        }
+                    ],
+                    "display": null,
+                    "value": null
+                },
+                "role": {
+                    "type": {
+                        "component": "LIST"
+                    },
+                    "icon": null,
+                    "label": "ROLE",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "startDate": {
+                    "type": {
+                        "component": "DATE"
+                    },
+                    "icon": "calendar",
+                    "label": "ENTER_START_DATE",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [
+                        {
+                            "rule": null,
+                            "message": {
+                                "key": "START_DATE_VALIDATION_MESSAGE"
+                            }
+                        }
+                    ],
+                    "display": null,
+                    "value": null
+                },
+                "paymentSchedule": {
+                    "type": {
+                        "component": "TEXT"
+                    },
+                    "icon": null,
+                    "label": "PAYMENT_SCHEDULE",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "title": {
+                    "type": {
+                        "component": "LIST"
+                    },
+                    "icon": null,
+                    "label": "TITLE",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                },
+                "manager": {
+                    "type": {
+                        "component": "LIST"
+                    },
+                    "icon": null,
+                    "label": "MANAGER",
+                    "required": true,
+                    "disabled": false,
+                    "validations": [],
+                    "display": null,
+                    "value": null
+                }
+            }
+        },
+        "icon": null,
+        "label": "CREATE_USER",
+        "required": true,
+        "disabled": false,
+        "validations": null,
+        "display": null,
+        "value": null
+    }
+}

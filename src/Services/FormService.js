@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { MOCK } from './../Constants/AppConstants';
 import ContestForm from './../MockData/ContestForm.json';
+import UserForm from './../MockData/UserForm.json';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 const serviceName = 'FormService';
@@ -19,10 +20,19 @@ export default class FormService {
         }
         try {
             if (MOCK) {
+                let data = null;
+                switch (type) {
+                    case 'contest':
+                        data = ContestForm[type];
+                        break;
+                    case 'user':
+                        data = UserForm[type];
+                        break;
+                }
                 return new Promise((resolve, reject) => {
                     resolve({
                         status: 200,
-                        data: ContestForm[type]
+                        data: data
                     });
                 });
             }

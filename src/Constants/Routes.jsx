@@ -80,7 +80,7 @@ const routes = [
         path: '/:tenantId/users/:id',
         renderFn: function (routeProps) {
             return (
-                <FormScreen type='contest' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
+                <FormScreen type='user' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
             );
         }
     },
