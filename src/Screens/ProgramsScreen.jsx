@@ -15,7 +15,7 @@ export class ProgramsScreen extends React.Component {
                     <FontAwesomeIcon className='icon announcementIcon' icon={faBullhorn} size='3x'/>
                     <Label type='body2' content={this.props.intl.formatMessage({ id: 'ANNOUNCEMENT' })}/>
                 </div>
-                <div className='programCard' onClick={this.handleClick.bind(this, 'contest')}>
+                <div className='programCard' onClick={this.handleClick.bind(this, `${tenantID}/contests`)}>
                     <FontAwesomeIcon className='icon contestIcon' icon={faStar} size='3x'/>
                     <Label type='body2' content={this.props.intl.formatMessage({ id: 'CONTEST' })}/>
                 </div>

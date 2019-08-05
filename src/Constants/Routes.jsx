@@ -3,7 +3,7 @@ import LoginScreen from '../Screens/LoginScreen';
 import HomeScreen from '../Screens/HomeScreen';
 import ContactScreen from '../Screens/ContactScreen';
 import ProgramsScreen from '../Screens/ProgramsScreen';
-import ContestScreen from '../Screens/ContestScreen';
+import ContestsScreen from '../Screens/ContestsScreen';
 import SignupScreen from '../Screens/SignupScreen';
 import UsersScreen from '../Screens/UsersScreen';
 import FormScreen from '../Screens/FormScreen';
@@ -44,10 +44,19 @@ const routes = [
         }
     },
     {
-        path: '/contest',
-        renderFn: function () {
+        path: '/:tenantId/contests/:id',
+        renderFn: function (routeProps) {
             return (
-                <ContestScreen/>
+                <FormScreen type='contest' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
+            );
+        }
+    },
+    {
+        path: '/:tenantId/contests',
+        exact: true,
+        renderFn: function (routeProps) {
+            return (
+                <ContestsScreen tenantId={routeProps.match.params.tenantId}/>
             );
         }
     },
