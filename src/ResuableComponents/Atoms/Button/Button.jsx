@@ -19,7 +19,7 @@ export class Button extends React.Component {
 
     clickHandler () {
         if (typeof this.props.onClick === 'function') {
-            this.props.onClick(this.props.form);
+            this.props.onClick(this.props.content);
         }
     }
 }

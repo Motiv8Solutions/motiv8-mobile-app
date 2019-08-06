@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import jsonLogic from 'json-logic-js';
+import Modal from './../../Molecules/Modal/Modal';
 import Text from './../../Atoms/Text/Text';
 import Select from './../../Atoms/Select/Select';
 import Button from './../../Atoms/Button/Button';
@@ -11,6 +12,11 @@ export class Form extends React.Component {
         this.renderContent = this.renderContent.bind(this);
         this.formButtonClickHandler = this.formButtonClickHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.listButtonClickHandler = this.listButtonClickHandler.bind(this);
+        this.state = {
+            showModal: false
+        };
     }
 
     render () {
@@ -18,6 +24,9 @@ export class Form extends React.Component {
         return (
             <div className={this.props.className}>
                 {this.renderContent(content)}
+                <Modal isOpen={this.state.showModal}>
+                    <button onClick={this.handleCloseModal}>Close</button>
+                </Modal>
             </div>
         );
     }
@@ -90,7 +99,7 @@ export class Form extends React.Component {
                 );
             case 'FORM':
                 return (
-                    <Button form={component} label={component.label} onClick={this.formButtonClickHandler}/>
+                    <Button content={component} label={component.label} onClick={this.formButtonClickHandler}/>
                 );
             case 'SINGLESELECT':
                 return (
@@ -99,6 +108,10 @@ export class Form extends React.Component {
             case 'RICHTEXT':
                 return (
                     <div>RICHTEXT Component</div>
+                );
+            case 'LIST':
+                return (
+                    <Button content={component.type.content} label={component.label} onClick={this.listButtonClickHandler}/>
                 );
             default:
                 return (
@@ -137,6 +150,18 @@ export class Form extends React.Component {
         if (typeof this.props.addFormToStack === 'function') {
             this.props.addFormToStack(content);
         }
+    }
+
+    listButtonClickHandler (content) {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    handleCloseModal () {
+        this.setState({
+            showModal: false
+        });
     }
 };
 

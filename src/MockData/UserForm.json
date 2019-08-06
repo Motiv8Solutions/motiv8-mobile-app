@@ -98,7 +98,10 @@
                 },
                 "role": {
                     "type": {
-                        "component": "LIST"
+                        "component": "LIST",
+                        "content": {
+                            "url": "/list/roles"
+                        }
                     },
                     "icon": null,
                     "label": "ROLE",
@@ -141,7 +144,10 @@
                 },
                 "title": {
                     "type": {
-                        "component": "LIST"
+                        "component": "LIST",
+                        "content": {
+                            "url": "/list/titles"
+                        }
                     },
                     "icon": null,
                     "label": "TITLE",
@@ -153,7 +159,10 @@
                 },
                 "manager": {
                     "type": {
-                        "component": "LIST"
+                        "component": "LIST",
+                        "content": {
+                            "url": "/list/managers"
+                        }
                     },
                     "icon": null,
                     "label": "MANAGER",
