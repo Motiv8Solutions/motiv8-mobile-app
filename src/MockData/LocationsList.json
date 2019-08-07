@@ -1,0 +1,17 @@
+{
+    "columns": [
+        { "value": "storeId", "label": "STORE_ID" },
+        { "value": "city", "label": "CITY" },
+        { "value": "location", "label": "LOCATION" }
+    ],
+    "data": [
+        { "storeId": "00000", "city": "San Jose", "location": "Valley Fair Mall" },
+        { "storeId": "00001", "city": "San Jose", "location": "Santana Row" },
+        { "storeId": "00002", "city": "San Jose", "location": "Westgate Mall" },
+        { "storeId": "00003", "city": "San Jose", "location": "Oakridge Mall" },
+        { "storeId": "00004", "city": "Los Gatos", "location": "Downtown" },
+        { "storeId": "00005", "city": "Milpitas", "location": "Great Mall" },
+        { "storeId": "00006", "city": "Pleasanton", "location": "Stoneridge Mall" },
+        { "storeId": "00007", "city": "Santa Cruz", "location": "Capitola Mall" }
+    ]
+}

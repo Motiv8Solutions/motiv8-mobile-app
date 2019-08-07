@@ -1,0 +1,14 @@
+{
+    "columns": [
+        { "value": "role", "label": "ROLE" },
+        { "value": "status", "label": "STATUS" },
+        { "value": "rule", "label": "RULE" }
+    ],
+    "data": [
+        { "role": "Associates", "status": "Active", "rule": "Title" },
+        { "role": "Department Managers", "status": "Active", "rule": "Title" },
+        { "role": "District Managers", "status": "Active", "rule": "Title" },
+        { "role": "Oakridge Mall", "status": "Active", "rule": "Custom" },
+        { "role": "Managers", "status": "Active", "rule": "Title" }
+    ]
+}

@@ -94,4 +94,20 @@ export class List extends React.Component {
 }
 
 export default styled(List)`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+
+    table {
+        th {
+            text-align: left;
+        }
+
+        td {
+            cursor: pointer;
+        }
+        
+        width: 100%;
+    }
 `;

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import jsonLogic from 'json-logic-js';
-import Modal from './../../Molecules/Modal/Modal';
 import Text from './../../Atoms/Text/Text';
 import Select from './../../Atoms/Select/Select';
 import Button from './../../Atoms/Button/Button';
+import ListButton from './../../Molecules/ListButton/ListButton';
 
 export class Form extends React.Component {
     constructor () {
@@ -12,11 +12,6 @@ export class Form extends React.Component {
         this.renderContent = this.renderContent.bind(this);
         this.formButtonClickHandler = this.formButtonClickHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.listButtonClickHandler = this.listButtonClickHandler.bind(this);
-        this.state = {
-            showModal: false
-        };
     }
 
     render () {
@@ -24,9 +19,6 @@ export class Form extends React.Component {
         return (
             <div className={this.props.className}>
                 {this.renderContent(content)}
-                <Modal isOpen={this.state.showModal}>
-                    <button onClick={this.handleCloseModal}>Close</button>
-                </Modal>
             </div>
         );
     }
@@ -111,7 +103,7 @@ export class Form extends React.Component {
                 );
             case 'LIST':
                 return (
-                    <Button content={component.type.content} label={component.label} onClick={this.listButtonClickHandler}/>
+                    <ListButton content={component.type.content} label={component.label}/>
                 );
             default:
                 return (
@@ -150,18 +142,6 @@ export class Form extends React.Component {
         if (typeof this.props.addFormToStack === 'function') {
             this.props.addFormToStack(content);
         }
-    }
-
-    listButtonClickHandler (content) {
-        this.setState({
-            showModal: true
-        });
-    }
-
-    handleCloseModal () {
-        this.setState({
-            showModal: false
-        });
     }
 };
 

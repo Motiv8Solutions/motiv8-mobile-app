@@ -67,7 +67,10 @@
                 },
                 "location": {
                     "type": {
-                        "component": "LIST"
+                        "component": "LIST",
+                        "content": {
+                            "list": "locations"
+                        }
                     },
                     "icon": null,
                     "label": "LOCATION",
@@ -100,7 +103,7 @@
                     "type": {
                         "component": "LIST",
                         "content": {
-                            "url": "/list/roles"
+                            "list": "roles"
                         }
                     },
                     "icon": null,
@@ -146,7 +149,7 @@
                     "type": {
                         "component": "LIST",
                         "content": {
-                            "url": "/list/titles"
+                            "list": "titles"
                         }
                     },
                     "icon": null,
@@ -161,7 +164,7 @@
                     "type": {
                         "component": "LIST",
                         "content": {
-                            "url": "/list/managers"
+                            "list": "managers"
                         }
                     },
                     "icon": null,
