@@ -1,32 +1,24 @@
 module.exports = {
-    entry: ['@babel/polyfill', './index.jsx'],
+    entry: ['./index.tsx'],
     module: {
         rules: [
             {
-                // Include js and jsx files
-                test: /\.(js|jsx)$/,
+                test: /\.ts(x?)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
+                use: [
+                    {
+                        loader: 'awesome-typescript-loader'
+                    }
+                ]
+            }/*,
             {
-                test: /\.(jpe?p|png|gif|svg)$/i,
-                exclude: /node_modules/,
-                loader: 'url-loader',
-                options: {
-                    limit: 204800
-                }
-            },
-            {
-                test: /\.(jpe?p|png|gif|svg)$/i,
-                exclude: /node_modules/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]'
-                }
-            }
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader'
+            }*/
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.json', '.ts', '.tsx', '.js', '.jsx']
     }
 };

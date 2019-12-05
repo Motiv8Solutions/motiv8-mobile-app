@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
@@ -6,7 +6,7 @@ import { Label } from 'motiv8-atoms';
 import { faBullhorn, faStar, faWallet, faMoneyBillAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export class ProgramsScreen extends React.Component {
+export class ProgramsScreen extends React.Component<any, any> {
     render () {
         let tenantID = 3432; // get the tenantID from local storage
         return (
@@ -35,7 +35,7 @@ export class ProgramsScreen extends React.Component {
         );
     }
 
-    handleClick (program) {
+    handleClick (program: string) {
         console.log(`program = ${program}`);
         this.props.history.push(`/${program}`);
     }

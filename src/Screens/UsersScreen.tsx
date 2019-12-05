@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { PrimaryButton } from 'motiv8-atoms';
 
-export class UsersScreen extends React.Component {
+export class UsersScreen extends React.Component<any, any> {
     render () {
         let tenantID = 3432; // get this tenantID from local storage
         return (

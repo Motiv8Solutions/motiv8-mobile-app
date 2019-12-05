@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import ReactModal from 'react-modal';
+import * as ReactModal from 'react-modal';
 
 ReactModal.setAppElement('#root');
 
-export class Modal extends React.Component {
+export class Modal extends React.Component<any, any> {
     render () {
         return (
             <ReactModal className={this.props.className} {...this.props}/>

@@ -1,11 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Label } from 'motiv8-atoms';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 
-class SplashScreen extends React.Component {
-    constructor (props) {
+class SplashScreen extends React.Component<any, any> {
+    countdownTimer: any = null;
+    
+    constructor (props: any) {
         super(props);
         this.countdownTimer = null;
     }

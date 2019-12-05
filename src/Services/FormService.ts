@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { MOCK } from './../Constants/AppConstants';
-import ContestForm from './../MockData/ContestForm.json';
-import UserForm from './../MockData/UserForm.json';
+import { MOCK } from '../Constants/AppConstants';
+import * as ContestForm from './../MockData/ContestForm.json';
+import * as UserForm from './../MockData/UserForm.json';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 const serviceName = 'FormService';
@@ -11,7 +11,7 @@ const serviceName = 'FormService';
  * TODO: Think about where the key 'contest' should come from?
  */
 export default class FormService {
-    getForm (type, tenantId, id) {
+    getForm (type: string, tenantId: string, id: string) {
         const methodName = 'getForm';
         const logPrefix = `${serviceName}.${methodName}: `;
         let url = `/${tenantId}/forms/${type}`;
@@ -20,7 +20,7 @@ export default class FormService {
         }
         try {
             if (MOCK) {
-                let data = null;
+                let data: any = null;
                 switch (type) {
                     case 'contest':
                         data = ContestForm[type];
@@ -29,7 +29,7 @@ export default class FormService {
                         data = UserForm[type];
                         break;
                 }
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve: any, reject: any) => {
                     resolve({
                         status: 200,
                         data: data

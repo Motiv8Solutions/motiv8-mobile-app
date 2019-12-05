@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import List from './List';
 import ListService from './../../../Services/ListService';
@@ -9,8 +9,9 @@ import ListService from './../../../Services/ListService';
  * The content contains the URL to get the list data.
  * The label contains the name of the list to display.
  */
-export class ListContainer extends React.Component {
-    constructor (props) {
+export class ListContainer extends React.Component<any, any> {
+    listService: ListService = null;
+    constructor (props: any) {
         super(props);
         this.state = {
             columns: [],
@@ -23,7 +24,7 @@ export class ListContainer extends React.Component {
     async componentDidMount () {
         let list = this.props.content.list;
         console.log(`content url: ${list}`);
-        let listResponse = await this.listService.getList(list, this.props.tenantId);
+        let listResponse: any = await this.listService.getList(list, this.props.tenantId);
         if (listResponse.status === 200) {
             this.setState({
                 columns: listResponse.data.columns,
@@ -53,7 +54,7 @@ export class ListContainer extends React.Component {
         );
     }
 
-    handleRowClick (row) {
+    handleRowClick () {
 
     }
 }

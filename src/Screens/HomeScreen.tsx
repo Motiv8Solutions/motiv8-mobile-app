@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card } from 'motiv8-atoms';
 import Header from '../Components/Header';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
@@ -8,8 +8,10 @@ import { withRouter } from 'react-router';
 /**
  * Displays the content of the Home Screen. This is the first screen shown to the user when they log in.
  */
-class HomeScreen extends React.Component {
-    constructor (props) {
+class HomeScreen extends React.Component<any, any> {
+    fuzzyFridaysConfig: any = null;
+    denimDaysConfig: any = null;
+    constructor (props: any) {
         super(props);
         this.fuzzyFridaysConfig = {
             content: {

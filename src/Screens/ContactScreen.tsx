@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { Textbox, PrimaryButton } from 'motiv8-atoms';
@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /**
  * Screen to display a form that allows a user to send feedback with support for attaching screenshots.
  */
-class ContactScreen extends React.Component {
-    constructor () {
-        super();
+class ContactScreen extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.openPhotoLibrary = this.openPhotoLibrary.bind(this);
     }
 
@@ -44,7 +44,7 @@ class ContactScreen extends React.Component {
             navigator.camera.getPicture(this.onCaptureSuccess, this.onCaptureFail, {
                 allowEdit: true,
                 correctOrientation: true,
-                destination: Camera.DestinationType.FILE_URI,
+                destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                 targetHeight: 316,
                 targetWidth: 320

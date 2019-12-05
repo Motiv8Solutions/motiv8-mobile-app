@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 /**
@@ -26,9 +26,9 @@ import styled from 'styled-components';
  * 
  *      onClick (rowData)
  */
-export class List extends React.Component {
-    constructor () {
-        super();
+export class List extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
     }
 
     render () {
@@ -56,7 +56,7 @@ export class List extends React.Component {
                 <thead>
                     <tr>
                         {
-                            this.props.columns.map((column, columnIndex) => {
+                            this.props.columns.map((column: any, columnIndex: number) => {
                                 return (
                                     <th key={`header${columnIndex}`}>{column.label}</th>
                                 );
@@ -73,7 +73,7 @@ export class List extends React.Component {
             return (
                 <tbody>
                     {
-                        this.props.data.map((row, rowIndex) => {
+                        this.props.data.map((row: any, rowIndex: number) => {
                             return (
                                 <tr key={`row${rowIndex}`}>
                                     {

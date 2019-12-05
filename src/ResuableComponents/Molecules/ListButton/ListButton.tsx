@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import Button from './../../Atoms/Button/Button';
 import Modal from './../Modal/Modal';
 import ListContainer from './../List/ListContainer';
 
-export class ListButton extends React.Component {
-    constructor () {
-        super();
+export class ListButton extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.state = {
             showModal: false
         };

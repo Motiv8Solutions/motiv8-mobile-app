@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 /**
  * Component that displays a text box. The textbox can be used to input text, date, time, number etc.
  */
-export class Text extends React.Component {
-    constructor () {
-        super();
+export class Text extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.changeHandler = this.changeHandler.bind(this);
     }
     
@@ -17,7 +17,7 @@ export class Text extends React.Component {
         );
     }
 
-    changeHandler (name, e) {
+    changeHandler (name: string, e: any) {
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(name, e.target.value);
         }

@@ -1,14 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { AppHeader } from 'motiv8-atoms';
 import { faBars, faCarrot, faTrophy, faCalculator, faQuestion, faHandsHelping, faSignOutAlt, faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router';
 
-function action (index, item) {
+function action (index: number, item: any) {
     console.log(`index shown ${index}, item shown ${item.text}`);
 };
 
 class Header extends React.Component {
-    constructor (props) {
+    config: any = null;
+    constructor (props: any) {
         super(props);
         this.config = {
             toggle: {

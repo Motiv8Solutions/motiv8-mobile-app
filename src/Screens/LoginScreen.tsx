@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Label, Textbox, PrimaryButton, Select, MobilePicker } from 'motiv8-atoms';
 import { injectIntl } from 'react-intl';
@@ -8,8 +8,10 @@ import BiometricService from '../Services/BiometricService';
 /**
  * Screen to display the login form to the user for signing into the application.
  */
-class LoginScreen extends React.Component {
-    constructor (props) {
+class LoginScreen extends React.Component<any, any> {
+    biometricService: BiometricService = null;
+    displayName: string = 'LoginScreen';
+    constructor (props: any) {
         super(props);
         this.state = {
             countryCode: null,
@@ -31,7 +33,7 @@ class LoginScreen extends React.Component {
         // we are here in the login screen because local storage has country code and phone number,
         // otherwise the user would be on the sign up screen.
         if (bearerToken !== null) { // biometrics enrolled
-            let biometricResult = await this.biometricService.checkBiometricSupport();
+            let biometricResult: any = await this.biometricService.checkBiometricSupport();
             this.setState({
                 countryCode: countryCode,
                 mobileNumber: mobileNumber,
@@ -86,7 +88,7 @@ class LoginScreen extends React.Component {
                     console.info(`LoginScreen.showTouchId: iOS touch ID verified`);
                     that.props.history.push('/home');
                 },
-                function (msg) {
+                function (msg: string) {
                     // error handler, with error code and localized reason
                     // TODO: what do we do here?
                     console.error(`LoginScreen.showTouchId: iOS error in verifying fingerprint, message: ${JSON.stringify(msg)}`);
@@ -103,13 +105,13 @@ class LoginScreen extends React.Component {
             };
             FingerprintAuth.encrypt(
                 config,
-                function (result) {
+                function (result: any) {
                     // success handler, fingerprint accepted
                     // take the user home
                     console.info(`LoginScreen.showTouchId: android fingerprint verified`);
                     that.props.history.push('/home');
                 },
-                function (error) {
+                function (error: any) {
                     // error handler, with error code and localized reason
                     console.error(`LoginScreen.showTouchId: android fingerprint error, message: ${JSON.stringify(error)}`);
                 }
@@ -117,7 +119,7 @@ class LoginScreen extends React.Component {
         }
     }
 
-    handleCountryCode (value) {
+    handleCountryCode (value: string) {
         this.setState({
             countryCode: value
         });
@@ -130,7 +132,7 @@ class LoginScreen extends React.Component {
      */
     renderOrgs () {
         console.log(`Rendering orgs....`);
-        let orgs = window.localStorage.getItem('organizations');
+        let orgs: any = window.localStorage.getItem('organizations');
         console.log(`local storage: orgs = ${orgs}`);
         let mobileNumber = window.localStorage.getItem('mobileNumber');
         console.log(`local storage mobile number: ${mobileNumber}`);
@@ -139,13 +141,13 @@ class LoginScreen extends React.Component {
         }
         console.log(`renderOrgs: orgs length: ${orgs.length}`);
         if (orgs.length > 0) {
-            let orgOptions = orgs.map((org) => {
+            let orgOptions = orgs.map((org: any) => {
                 return { label: org.orgName, value: org.tenantID };
             });
             return (
                 <select defaultValue={orgOptions[0].value} onChange={this.handleOrgChange}>
                     {
-                        orgOptions.map((option, index) => {
+                        orgOptions.map((option: any, index: number) => {
                             return (
                                 <option key={`org${index}`} value={option.value}>{option.label}</option>
                             )
@@ -162,11 +164,11 @@ class LoginScreen extends React.Component {
      * When the user changes the organization we will need to store the current used org in local storage
      * for further use.
      */
-    handleOrgChange (event) {
+    handleOrgChange (event: any) {
         console.log(`org change handler: value = ${JSON.stringify(event.target.value)}`);
     }
 
-    handleCode (value) {
+    handleCode (value: any) {
         this.setState({
             code: value
         });
@@ -178,7 +180,7 @@ class LoginScreen extends React.Component {
     }
 }
 
-LoginScreen.displayName = 'LoginScreen';
+// LoginScreen.displayName = 'LoginScreen';
 
 export default styled(injectIntl(withRouter(LoginScreen)))`
     align-items: center;

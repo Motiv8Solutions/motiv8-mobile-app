@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import jsonLogic from 'json-logic-js';
 import Text from './../../Atoms/Text/Text';
@@ -6,9 +6,9 @@ import Select from './../../Atoms/Select/Select';
 import Button from './../../Atoms/Button/Button';
 import ListButton from './../../Molecules/ListButton/ListButton';
 
-export class Form extends React.Component {
-    constructor () {
-        super();
+export class Form extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.renderContent = this.renderContent.bind(this);
         this.formButtonClickHandler = this.formButtonClickHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
@@ -27,7 +27,7 @@ export class Form extends React.Component {
      * Renders the form from the JSON.
      * @param {object} content The content object contains the form rows. Each row is an object with the key as the unique identifier for the row.
      */
-    renderContent (content) {
+    renderContent (content: any) {
         let contentKeys = Object.keys(content);
         return contentKeys.map((key, keyIndex, contentKeys) => {
             let component = content[key];
@@ -64,7 +64,7 @@ export class Form extends React.Component {
      * @param {object} component The JSON corresponding to the component.
      * @param {*} key The name of the component in the form JSON.
      */
-    renderComponent (component, key) {
+    renderComponent (component: any, key: string) {
         let componentType = component.type.component;
         let componentName = key;
         let componentValue = component.value || '';
@@ -117,7 +117,7 @@ export class Form extends React.Component {
      * @param {string} name The name of the component which corresponds to the name in the form JSON.
      * @param {string} value Value of the component.
      */
-    changeHandler (name, value) {
+    changeHandler (name: string, value: any) {
         if (typeof this.props.onFormRowChange === 'function') {
             this.props.onFormRowChange(name, value);
         }
@@ -128,7 +128,7 @@ export class Form extends React.Component {
      * @param {string} name The name of the component in the form JSON.
      * @param {object} e The event object.
      */
-    handleChange (name, e) {
+    handleChange (name: string, e: any) {
         if (typeof this.props.onFormRowChange === 'function') {
             this.props.onFormRowChange(name, e.target.value);
         }
@@ -138,7 +138,7 @@ export class Form extends React.Component {
      * This function is called when a sub form button is clicked.
      * @param {object} content The content of the form.
      */
-    formButtonClickHandler (content) {
+    formButtonClickHandler (content: any) {
         if (typeof this.props.addFormToStack === 'function') {
             this.props.addFormToStack(content);
         }

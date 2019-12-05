@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 import routes from './Constants/Routes';
@@ -8,9 +8,9 @@ import Header from './Components/Header';
 /**
  * The AppFrame component houses the Header and the routes that display the various screens.
  */
-class AppFrame extends React.Component {
-    constructor () {
-        super();
+class AppFrame extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.renderHeader = this.renderHeader.bind(this);
     }
 

@@ -21,10 +21,10 @@ export default class BiometricService {
         });
     }
 
-    checkIOSBiometricSupport (resolve, reject) {
+    checkIOSBiometricSupport (resolve: any, reject: any) {
         let that = this;
         window.plugins.touchid.isAvailable(
-            function (type) {
+            function (type: string) {
                 // biometric auth is available
                 console.info(`iOS biometric auth is available, type is ${type}`);
                 resolve({
@@ -33,7 +33,7 @@ export default class BiometricService {
                     biometricType: (type === 'face' ? 'face' : 'touch')
                 });
             },
-            function (message) {
+            function (message: string) {
                 // error function, biometric auth is not available
                 console.warn(`Biometric auth is not available on iOS device. Message is ${JSON.stringify(message)}`);
                 resolve({
@@ -45,10 +45,10 @@ export default class BiometricService {
         )
     }
 
-    checkAndroidBiometricSupport (resolve, reject) {
+    checkAndroidBiometricSupport (resolve: any, reject: any) {
         let that = this;
         FingerprintAuth.isAvailable(
-            function (result) {
+            function (result: any) {
                 // biometric auth is available
                 console.info(`Android biometric auth is available, result is ${JSON.stringify(result)}`);
                 resolve({
@@ -57,7 +57,7 @@ export default class BiometricService {
                     biometricType: 'fingerprint'
                 });
             },
-            function (message) {
+            function (message: string) {
                 // if (err === 'Cancelled') {
                 //     console.info(`Android fingerprint auth dialog cancelled`);
                 //     // TODO: Show warning message that this is the only form of authentication.

@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 /**
  * Renders a button component.
  */
-export class Button extends React.Component {
-    constructor () {
-        super();
+export class Button extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.clickHandler = this.clickHandler.bind(this);
     }
 

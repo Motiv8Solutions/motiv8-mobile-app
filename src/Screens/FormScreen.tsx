@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import FormService from '../Services/FormService';
 import Form from './../ResuableComponents/Organisms/Form/Form';
@@ -6,8 +6,9 @@ import Form from './../ResuableComponents/Organisms/Form/Form';
 /**
  * This component gets the form json for a given form type, tenant id and form id and renders the form using the Form component.
  */
-export class FormScreen extends React.Component {
-    constructor (props) {
+export class FormScreen extends React.Component<any, any> {
+    formService: FormService = null;
+    constructor (props: any) {
         super(props);
         this.state = {
             formIndex: null,
@@ -26,7 +27,7 @@ export class FormScreen extends React.Component {
             id = null;
         }
         let type = this.props.type;
-        let formResponse = await this.formService.getForm(type, this.props.tenantId, id);
+        let formResponse: any = await this.formService.getForm(type, this.props.tenantId, id);
         if (formResponse.status === 200) {
             let formStack = this.state.formStack;
             let formIndex = this.state.formIndex;
@@ -76,7 +77,7 @@ export class FormScreen extends React.Component {
      * The stack keeps track of nested forms.
      * @param {object} form The form being added to the stack.
      */
-    addFormToStackHandler (form) {
+    addFormToStackHandler (form: any) {
         let formStack = this.state.formStack;
         let formIndex = this.state.formIndex;
         formStack.push(form);
@@ -124,7 +125,7 @@ export class FormScreen extends React.Component {
      * @param {string} name The name of the form row or component. 
      * @param {string} value The value of the form row/component.
      */
-    formRowChangeHandler (name, value) {
+    formRowChangeHandler (name: string, value: any) {
         let formStack = this.state.formStack;
         let currentForm = formStack[this.state.formIndex];
         let content = currentForm.type.content;

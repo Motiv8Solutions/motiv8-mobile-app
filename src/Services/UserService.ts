@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { MOCK } from './../Constants/AppConstants';
+import { MOCK } from '../Constants/AppConstants';
 const baseUrl = 'http://localhost:3001/api/v1';
 const serviceName = 'UserService';
 
 
 /** Interface for interacting with the user entities */
 export default class UserService {
-    lookupMobileNumber (countryCode, mobileNumber) {
+    lookupMobileNumber (countryCode: string, mobileNumber: string) {
         const methodName = 'lookupMobileNumber';
         const logPrefix = `${serviceName}.${methodName}: `;
         countryCode = countryCode || '1';
@@ -49,7 +49,7 @@ export default class UserService {
         }
     }
 
-    confirmOrganization (countryCode, mobileNumber, tenantID) {
+    confirmOrganization (countryCode: string, mobileNumber: string, tenantID: string) {
         const methodName = 'confirmOrganization';
         const logPrefix = `${serviceName}.${methodName}: `;
         countryCode = countryCode || '1';
@@ -81,7 +81,7 @@ export default class UserService {
         }
     }
 
-    confirmCode (tenantID, token, code) {
+    confirmCode (tenantID: string, token: string, code: string) {
         const methodName = 'confirmCode';
         const logPrefix = `${serviceName}.${methodName}: `;
         try {
@@ -113,7 +113,7 @@ export default class UserService {
         }
     }
 
-    getUsers (tenantID) {
+    getUsers (tenantID: string) {
         const methodName = 'getUsers';
         const logPrefix = `${serviceName}.${methodName}: `;
         try {
@@ -179,11 +179,11 @@ export default class UserService {
     }
 
 
-    addUser (newUser) {
+    addUser (newUser: string) {
 
     }
 
-    editUser (updatedUser) {
+    editUser (updatedUser: string) {
 
     }
 };

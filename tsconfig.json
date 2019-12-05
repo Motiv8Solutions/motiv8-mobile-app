@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es2017",
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "lib": ["dom", "es2017", "esnext.intl", "es2017.intl", "es2018.intl"],
+        "types": []
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { MOCK } from './../Constants/AppConstants';
-import LocationsList from './../MockData/LocationsList.json';
-import RolesList from './../MockData/RolesList.json';
+import { MOCK } from '../Constants/AppConstants';
+import * as LocationsList from './../MockData/LocationsList.json';
+import * as RolesList from './../MockData/RolesList.json';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 const serviceName = 'ListService';
@@ -11,13 +11,13 @@ const serviceName = 'ListService';
  * TODO: Do we need any sort of form ID?
  */
 export default class ListService {
-    getList (list, tenantId) {
+    getList (list: any, tenantId: string) {
         const methodName = 'getList';
         const logPrefix = `${serviceName}.${methodName}: `;
         let url = `/${tenantId}/lists/${list}`;
         try {
             if (MOCK) {
-                let data = null;
+                let data: any = null;
                 switch (list) {
                     case 'locations':
                         data = LocationsList;

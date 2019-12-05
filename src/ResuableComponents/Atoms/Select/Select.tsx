@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 /**
  * Renders a single select component.
  */
-export class Select extends React.Component {
-    constructor () {
-        super();
+export class Select extends React.Component<any, any> {
+    constructor (props: any) {
+        super(props);
         this.changeHandler = this.changeHandler.bind(this);
     }
 
@@ -15,7 +15,7 @@ export class Select extends React.Component {
         return (
             <select name={name} value={value} {...rest} onChange={this.changeHandler.bind(this, name)}>
                 {
-                    options.map((option, optionIndex) => {
+                    options.map((option: any, optionIndex: number) => {
                         return (
                             <option key={`option${optionIndex}`} value={option.value}>{option.label}</option>
                         )
@@ -25,7 +25,7 @@ export class Select extends React.Component {
         );
     }
 
-    changeHandler (name, e) {
+    changeHandler (name: string, e: any) {
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(name, e.target.value);
         }

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Carousel, Slide, IconButton, Textbox, Label, PrimaryButton } from 'motiv8-atoms';
 import  { injectIntl } from 'react-intl';
@@ -7,11 +7,12 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import UserService from './../Services/UserService';
 import BiometricService from './../Services/BiometricService';
 
-class MobileNumberEntry extends React.Component {
-    countryCode = null;
-    mobileNumber = null;
+class MobileNumberEntry extends React.Component<any, any> {
+    countryCode: string = null;
+    mobileNumber: string = null;
+    userService: UserService = null;
 
-    constructor (props) {
+    constructor (props: any) {
         super(props);
         this.state = {
             countryCode: '',
@@ -37,7 +38,7 @@ class MobileNumberEntry extends React.Component {
         );
     }
 
-    handleCountryCode (value) {
+    handleCountryCode (value: string) {
         this.setState({
             countryCode: value
         }, () => {
@@ -47,7 +48,7 @@ class MobileNumberEntry extends React.Component {
         });
     }
 
-    handleMobileNumber (value) {
+    handleMobileNumber (value: string) {
         this.setState({
             mobileNumber: value
         }, () => {
@@ -58,7 +59,7 @@ class MobileNumberEntry extends React.Component {
     }
 
     async submitMobileNumber () {
-        let orgResponse = await this.userService.lookupMobileNumber(this.state.countryCode, this.state.mobileNumber);
+        let orgResponse: any = await this.userService.lookupMobileNumber(this.state.countryCode, this.state.mobileNumber);
         if (orgResponse.status === 200) {
             console.info(`orgs = ${JSON.stringify(orgResponse.data)}`);
 
@@ -99,8 +100,10 @@ const MobileNumberEntryStyled = styled(injectIntl(MobileNumberEntry))`
     }
 `;
 
-class OrganizationEntry extends React.Component {
-    constructor (props) {
+class OrganizationEntry extends React.Component<any, any> {
+    userService: UserService = null;
+
+    constructor (props: any) {
         super(props);
         this.userService = new UserService();
         this.submitOrganization = this.submitOrganization.bind(this);
@@ -127,7 +130,7 @@ class OrganizationEntry extends React.Component {
     }
 
     async submitOrganization () {
-        let response = await this.userService.confirmOrganization(this.props.countryCode, this.props.mobileNumber, this.props.organizations[0].tenantID);
+        let response: any = await this.userService.confirmOrganization(this.props.countryCode, this.props.mobileNumber, this.props.organizations[0].tenantID);
         if (!response || !response.data || !response.data.token) {
             throw new Error(`Error in response from call to confirm organization`);
         }
@@ -169,8 +172,10 @@ const OrganizationEntryStyled = styled(injectIntl(OrganizationEntry))`
     }
 `;
 
-class CodeEntry extends React.Component {
-    constructor (props) {
+class CodeEntry extends React.Component<any, any> {
+    userService: UserService = null;
+
+    constructor (props: any) {
         super(props);
         this.userService = new UserService();
         this.submitCode = this.submitCode.bind(this);
@@ -207,12 +212,12 @@ class CodeEntry extends React.Component {
     renderCodeTextbox () {
         let textboxComps = [];
         for (let i = 0; i < 6; i++) {
-            textboxComps.push(<Textbox key={`codebox${i}`} value={this.state.code[i]} charSize={1} onChange={(value) => this.handleCodeChange(i, value)} />)
+            textboxComps.push(<Textbox key={`codebox${i}`} value={this.state.code[i]} charSize={1} onChange={(value: any) => this.handleCodeChange(i, value)} />)
         }
         return textboxComps;
     }
 
-    handleCodeChange (index, value) {
+    handleCodeChange (index: number, value: string) {
         console.log(`handleCodeChange: index = ${index}, value = ${value}`);
         let code = this.state.code;
         code[index] = value;
@@ -224,7 +229,7 @@ class CodeEntry extends React.Component {
     async submitCode () {
         let tenantID = this.props.organizations[0].tenantID;
         console.log(`submitCode: tempToken: ${this.props.tempToken}, code: ${this.state.code.join('')}`);
-        let response = await this.userService.confirmCode(tenantID, this.props.tempToken, this.state.code.join(''));
+        let response: any = await this.userService.confirmCode(tenantID, this.props.tempToken, this.state.code.join(''));
         if (!response || !response.data || !response.data.token) {
             throw new Error(`Error in response from call to submit code.`);
         }
@@ -258,8 +263,9 @@ const CodeEntryStyled = styled(injectIntl(CodeEntry))`
 `;
 
 
-class BiometricScreen extends React.Component {
-    constructor (props) {
+class BiometricScreen extends React.Component<any, any> {
+    biometricService: BiometricService = null;
+    constructor (props: any) {
         super(props);
         this.state = {
             biometricsSupported: false,
@@ -276,7 +282,7 @@ class BiometricScreen extends React.Component {
      * First launch the correct plugin based on the type of device, iOS or Andriod. We do not support anything else, right now.
      */
     async componentDidMount () {
-        let biometricResult = await this.biometricService.checkBiometricSupport();
+        let biometricResult: any = await this.biometricService.checkBiometricSupport();
         this.setState({
             biometricsSupported: biometricResult.biometricsSupported,
             biometricType: biometricResult.biometricType,
@@ -372,7 +378,7 @@ class BiometricScreen extends React.Component {
                     }
                     that.props.history.push('/home');
                 },
-                function (msg) {
+                function (msg: string) {
                     // error handler, with error code and localized reason
                     // TODO: What do we do here?
                     console.error(`BiometricScreen.registerBiometrics: iOS error in registering biometric authentication, message: ${JSON.stringify(msg)}`);
@@ -391,7 +397,7 @@ class BiometricScreen extends React.Component {
             };
             FingerprintAuth.encrypt(
                 config,
-                function (result) {
+                function (result: any) {
                     console.info(`BiometricScreen.registerBiometrics: Fingerprint verified, result: ${JSON.stringify(result)}`);
                     if (result.withFingerprint) {
                         console.info(`BiometricScreen.registerBiometrics: Successfully encrypted credentials, encrypted token: ${result.token}`);
@@ -402,7 +408,7 @@ class BiometricScreen extends React.Component {
                         that.props.history.push('/home');
                     }
                 },
-                function (error) {
+                function (error: any) {
                     // error handler, with error code and localized reason
                     // TODO: What do we do here?
                     console.error(`BiometricScreen.registerBiometrics: android error in registering biometric authentication, message: ${JSON.stringify(error)}`);
@@ -427,10 +433,11 @@ const BiometricScreenStyled = styled(injectIntl(withRouter(BiometricScreen)))`
 
 `;
 
-class SignupScreen extends React.Component {
-    carousalRef = React.createRef();
+class SignupScreen extends React.Component<any, any> {
+    carousalRef: any = React.createRef();
+    biometricService: BiometricService = null;
 
-    constructor (props) {
+    constructor (props: any) {
         super(props);
         this.state = {
             countryCode: null,
@@ -473,31 +480,31 @@ class SignupScreen extends React.Component {
         );
     }
 
-    handleCountryCodeChange (value) {
+    handleCountryCodeChange (value: string) {
         this.setState({
             countryCode: value
         });
     }
 
-    handleMobileNumberChange (value) {
+    handleMobileNumberChange (value: string) {
         this.setState({
             mobileNumber: value
         });
     }
 
-    handleOrgsChange (value) {
+    handleOrgsChange (value: string) {
         this.setState({
             organizations: value
         });
     }
 
-    handleConfirmOrganizationResponse (value) {
+    handleConfirmOrganizationResponse (value: string) {
         this.setState({
             tempToken: value
         });
     }
 
-    handleSubmitCodeResponse (value) {
+    handleSubmitCodeResponse (value: string) {
         this.setState({
             bearerToken: value
         }, () => {
@@ -512,7 +519,7 @@ class SignupScreen extends React.Component {
      * This handler is called when the biometrics succeed. We will store all important data to local storage.
      * @param {string} value If the device is iOS the bearer token, if andriod the encrypted token
      */
-    handleBiometricsConfirmation (value) {
+    handleBiometricsConfirmation (value: string) {
         // this value is the bearer token if the device is iOS, else it is an encrypted token if Andriod.
         window.localStorage.setItem('bearerToken', value);
     }

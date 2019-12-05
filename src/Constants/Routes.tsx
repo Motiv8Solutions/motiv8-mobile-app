@@ -8,7 +8,7 @@ import SignupScreen from '../Screens/SignupScreen';
 import UsersScreen from '../Screens/UsersScreen';
 import FormScreen from '../Screens/FormScreen';
 import { ParticipantView } from 'motiv8-atoms';
-import React from 'react';
+import * as React from 'react';
 
 const routes = [
     {
@@ -45,7 +45,7 @@ const routes = [
     },
     {
         path: '/:tenantId/contests/:id',
-        renderFn: function (routeProps) {
+        renderFn: function (routeProps: any) {
             return (
                 <FormScreen type='contest' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
             );
@@ -54,7 +54,7 @@ const routes = [
     {
         path: '/:tenantId/contests',
         exact: true,
-        renderFn: function (routeProps) {
+        renderFn: function (routeProps: any) {
             return (
                 <ContestsScreen tenantId={routeProps.match.params.tenantId}/>
             );
@@ -78,7 +78,7 @@ const routes = [
     },
     {
         path: '/:tenantId/users/:id',
-        renderFn: function (routeProps) {
+        renderFn: function (routeProps: any) {
             return (
                 <FormScreen type='user' tenantId={routeProps.match.params.tenantId} id={routeProps.match.params.id}/>
             );
@@ -87,7 +87,7 @@ const routes = [
     {
         path: '/:tenantId/users',
         exact: true,
-        renderFn: function (routeProps) {
+        renderFn: function (routeProps: any) {
             return (
                 <UsersScreen tenantID={routeProps.match.params.tenantID}/>
             );

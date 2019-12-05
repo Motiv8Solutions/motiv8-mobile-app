@@ -4,13 +4,14 @@ const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
+    mode: 'development',
     output: {
         filename: '[name].bundle.js',
         /* eslint-disable no-undef */
         path: path.resolve(__dirname, 'dist')
         /* eslint-enable no-undef */
     },
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
         contentBase: './dist'
     },
